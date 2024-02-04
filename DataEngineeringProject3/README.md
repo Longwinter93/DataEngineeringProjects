@@ -1,3 +1,6 @@
+Data was extracting from a webiste using Python scripts. This task is run by Apache Airflow. 
+Then, data was transformed and loaded to postgresql tables by using pyspark scripts  
+
 -- running 
 1) docker compose up
 2) executing tasks in Apache Airflow
