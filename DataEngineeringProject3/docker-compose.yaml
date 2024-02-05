@@ -55,7 +55,6 @@ services:
    
   spark:
     image: docker.io/bitnami/spark:3.5
-#    build: .
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -72,7 +71,6 @@ services:
       - ./requirements.txt:/opt/bitnami/spark/requirements.txt
   spark-worker:
     image: docker.io/bitnami/spark:3.5
-#    build: . 
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark:7077
@@ -135,7 +133,6 @@ services:
   airflow-init:
     <<: *airflow-common
     entrypoint: /bin/bash
-    # yamllint disable rule:line-length
     command:
       - -c
       - |
@@ -184,7 +181,6 @@ services:
         mkdir -p /sources/logs /sources/dags /sources/plugins
         chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
         exec /entrypoint airflow version
-    # yamllint enable rule:line-length
     environment:
       <<: *airflow-common-env
       _AIRFLOW_DB_MIGRATE: 'true'
@@ -204,7 +200,6 @@ services:
     environment:
       <<: *airflow-common-env
       CONNECTION_CHECK_MAX_COUNT: "0"
-    # Workaround for entrypoint issue. See: https://github.com/apache/airflow/issues/16252
     command:
       - bash
       - -c
