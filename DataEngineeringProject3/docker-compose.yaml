@@ -45,7 +45,7 @@ services:
    
   spark:
     image: docker.io/bitnami/spark:3.5
-    command: ["/opt/bitnami/spark/PySparkRunningScript.sh"]
+    command: bash -c "/opt/bitnami/spark/PySparkRunningScript.sh"
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -109,7 +109,7 @@ services:
 
   airflow-triggerer:
     <<: *airflow-common
-    command: ["bash", "/opt/airflow/ApacheAirflowTrigger.sh"]
+    command: bash -c "/opt/airflow/ApacheAirflowTrigger.sh"
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
       interval: 30s
@@ -236,4 +236,3 @@ services:
 volumes:
   postgres-db-volume:
     driver: local
-
