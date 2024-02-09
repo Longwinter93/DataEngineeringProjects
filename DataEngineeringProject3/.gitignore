@@ -3,3 +3,4 @@ airflow-webserver.pid
 airflow.cfg
 webserver_config.py
 __pycache__
+postgres-data
