@@ -27,8 +27,6 @@ x-airflow-common:
     kafka1:
       condition: service_healthy
 
-
-
 services:
   postgres:
     image: postgres:13
@@ -74,7 +72,6 @@ services:
     networks:
       - mynetworks
 
-
   airflow-webserver:
     <<: *airflow-common
     command: webserver
@@ -96,7 +93,6 @@ services:
     networks:
       - mynetworks
 
-
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
@@ -116,10 +112,6 @@ services:
     networks:
       - mynetworks
 
-  
-
-
-
   airflow-triggerer:
     <<: *airflow-common
     command: bash -c "/opt/airflow/ApacheAirflowTrigger.sh"
@@ -134,16 +126,10 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-      airflow-scheduler:
-        condition: service_completed_successfully
-      airflow-webserver:
-        condition: service_completed_successfully
       kafka1:
         condition: service_healthy
     networks:
       - mynetworks
-
-
 
   airflow-init:
     <<: *airflow-common
@@ -212,7 +198,6 @@ services:
       kafka1:
         condition: service_healthy
 
-
   airflow-cli:
     <<: *airflow-common
     profiles:
@@ -229,7 +214,6 @@ services:
     depends_on:
       kafka1:
         condition: service_healthy
-
 
   zoo1:
     image: confluentinc/cp-zookeeper:7.3.2
