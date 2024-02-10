@@ -24,6 +24,10 @@ x-airflow-common:
     &airflow-common-depends-on
     postgres:
       condition: service_healthy
+    kafka1:
+      condition: service_healthy
+
+
 
 services:
   postgres:
@@ -43,6 +47,8 @@ services:
       retries: 5
       start_period: 5s
     restart: always
+    networks:
+      - mynetworks
    
   spark:
     image: docker.io/bitnami/spark:3.5
@@ -62,6 +68,12 @@ services:
       - ./PySparkScripts/LoadingExchangeRateDataToDWH.py:/opt/bitnami/spark/LoadingExchangeRateDataToDWH.py
       - ./requirements.txt:/opt/bitnami/spark/requirements.txt
       - ./PySparkRunningScript.sh:/opt/bitnami/spark/PySparkRunningScript.sh
+    depends_on:
+      airflow-triggerer:
+        condition: service_completed_successfully
+    networks:
+      - mynetworks
+
 
   airflow-webserver:
     <<: *airflow-common
@@ -79,6 +91,11 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+      kafka1:
+        condition: service_healthy
+    networks:
+      - mynetworks
+
 
   airflow-scheduler:
     <<: *airflow-common
@@ -94,6 +111,13 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+      kafka1:
+        condition: service_healthy
+    networks:
+      - mynetworks
+
+  
+
 
 
   airflow-triggerer:
@@ -110,6 +134,12 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+      kafka1:
+        condition: service_healthy
+    networks:
+      - mynetworks
+
+
 
   airflow-init:
     <<: *airflow-common
@@ -172,6 +202,11 @@ services:
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
+    networks:
+      - mynetworks
+    depends_on:
+      kafka1:
+        condition: service_healthy
 
 
   airflow-cli:
@@ -185,6 +220,12 @@ services:
       - bash
       - -c
       - airflow
+    networks:
+      - mynetworks
+    depends_on:
+      kafka1:
+        condition: service_healthy
+
 
   zoo1:
     image: confluentinc/cp-zookeeper:7.3.2
@@ -196,6 +237,8 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888
+    networks:
+      - mynetworks
 
   kafka1:
     image: confluentinc/cp-kafka:7.3.2
@@ -219,9 +262,21 @@ services:
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
       KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+    networks:
+      - mynetworks
     depends_on:
       - zoo1
+    healthcheck:
+      test: nc -z localhost 9092 || exit -1
+      start_period: 15s
+      interval: 5s
+      timeout: 10s
+      retries: 10
 
+networks:
+  mynetworks:
+    driver: bridge
+  
 volumes:
   postgres-db-volume:
     driver: local
