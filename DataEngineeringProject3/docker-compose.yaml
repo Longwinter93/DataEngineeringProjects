@@ -134,6 +134,10 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+      airflow-scheduler:
+        condition: service_completed_successfully
+      airflow-webserver:
+        condition: service_completed_successfully
       kafka1:
         condition: service_healthy
     networks:
