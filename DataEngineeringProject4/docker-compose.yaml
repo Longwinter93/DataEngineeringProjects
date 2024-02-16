@@ -96,6 +96,8 @@ services:
       - MINIO_ROOT_USER=miniousername
       - MINIO_ROOT_PASSWORD=miniopassword
       - MINIO_DEFAULT_BUCKETS=bucketname
+      - MINIO_ACCESS_KEY=weak_access_key
+      - MINIO_SECRET_KEY=weak_secret_key
     networks:
       - mynetwork
       

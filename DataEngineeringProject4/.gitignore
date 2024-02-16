@@ -7,3 +7,6 @@ __pychage__
 airflow.cfg 
 webserver_config.py
 plugins
+minioaccesskey.txt
+miniotest.py
+__pycache__
