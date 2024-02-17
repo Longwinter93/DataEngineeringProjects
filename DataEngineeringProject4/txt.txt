@@ -33,3 +33,6 @@ data = rows.result()
 json.dumps(data)
 
 https://stackoverflow.com/questions/55568867/make-cassandra-object-json-serializable
+
+S3-API: http://localhost:9000
+minio-1              | Console: http://172.20.0.4:9001 http://127.0.0.1:9001
