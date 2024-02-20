@@ -6,6 +6,8 @@ import pandas as pd
 import logging
 import io  
 from minio import Minio 
+from kafka import KafkaProducer 
+from kafka.errors import KafkaError
 
 def MakingRequest(url: str) -> str:
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
@@ -132,50 +134,23 @@ def finalExecutionOfExchangeRate():
     PrintingDataFrameOfExchangeRate()
     SaveToCSVFile(dfUSDollarExchangeRates)
 
-def UploadDataMinioExchangeCurrency():
-    timestr = time.strftime("%d-%m-%Y")
-    URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
-    MakingRequest(URL)
+
+
+def CreateKafkaProducer():
+    localhost: 
+    return KafkaProducer(bootstrap_servers=[localhost]) 
+
+def PublishingMessageExchangeRateCurrencyToTopic():
+    producer = CreateKafkaProducer()
+    topic_name = 'ExchangeCurrency'
     DictionaryDataCurrencyValues = DictionaryOfExchangeRate()
     JSONCurrencyValues = ConvertingDictToJSON(DictionaryDataCurrencyValues)
-    dfUSDollarExchangeRates = CreateDataFrameFromJSON(JSONCurrencyValues)
-    df =  dfUSDollarExchangeRates
-    try: 
-        client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='JxAgbCeIJmzD88vAf1Ez',  
-                secret_key='fVtKdvXm5JO3sTqYFvSNmtck7mqGFiFUKUVeQfR6', 
-                    secure=False)  
-        if not client.bucket_exists("usdollarexchangerates"):
-            client.make_bucket("usdollarexchangerates")
-            print("\033[92m Bucket usdollarexchangerates created successfully.")
-              
-    except Exception as err:
-        print(f"Error occurred: {err}")
-        
-    ListOfAllAccessibleBuckets = print(f"\033[94m Total buckets:  {len(client.list_buckets())}"),  
-    csv_bytes = df.to_csv().encode('utf-8')
-    csv_buffer = io.BytesIO(csv_bytes)
-    try: 
-        UploadCSVFileToObject = client.put_object("usdollarexchangerates", 
-                        'RawDataUSDollarExchangeRates.csv',  
-                        data=csv_buffer, 
-                        length=len(csv_bytes), 
-                        content_type='application/csv')
-        
-        objects = client.list_objects("conversionrateexchange")
-        for obj in objects:
-            ListObjectInformationOfBucket = print(f"\033[95m List of Bucket Object {obj}")
-        return  UploadCSVFileToObject , ListObjectInformationOfBucket, ListOfAllAccessibleBuckets
-    except Exception as err:
-        print(f"Error occurred: {err}")
-
-
+    
+    
     
 if __name__ == "__main__":
     finalExecutionOfExchangeRate()
     print("\033[92m Data ExchangeCurrency was successfully saved as a CSV and JSON files")
-    UploadDataMinioExchangeCurrency()
-    print("\033[92m Data ExchangeCurrency was successfully loaded to an object in a bucket")
 
     
     

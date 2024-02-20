@@ -6,3 +6,4 @@ requests==2.27.1
 cassandra-driver==3.28.0
 Python_IO==0.3
 minio==7.2.4
+numpy==1.24.4

@@ -71,7 +71,7 @@ def CreateDataFrameFromJSONPercentageChange(json):
     dfPercentChangeIntheLast24Hours.reset_index(inplace=True)
     dfPercentChangeIntheLast24Hours = dfPercentChangeIntheLast24Hours.set_axis(['ConversionCurrency', 'PercentChange'], axis=1)
     today_ts = pd.Timestamp.today()
-#    dfPercentChangeIntheLast24Hours['LOADINGDATA'] = today_ts
+    dfPercentChangeIntheLast24Hours['LOADINGDATA'] = today_ts
     dfPercentChangeIntheLast24Hours     
 
     return dfPercentChangeIntheLast24Hours       
@@ -101,8 +101,8 @@ def UploadDataMinioExchangeRatePercentageChange():
     df = CreateDataFrameFromJSONPercentageChange(JSONConversionRateChangePercentage)
     try: 
         client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='i9w6Gi54Aeu6QuFyQm2L',  
-                secret_key='5WbJFrT6KESNtJ0toxEAx9dzrAXYT3vaO3GEdOEW', 
+                access_key='JxAgbCeIJmzD88vAf1Ez',  
+                secret_key='fVtKdvXm5JO3sTqYFvSNmtck7mqGFiFUKUVeQfR6', 
                     secure=False)  
         if not client.bucket_exists("conversionrateexchange"):
             client.make_bucket("conversionrateexchange")
