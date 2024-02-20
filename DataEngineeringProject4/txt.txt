@@ -1,0 +1,38 @@
+     b = session.set_keyspace('ExchangeCurrency')
+        query = """CREATE TABLE IF NOT EXISTS ExchangeCurrency.USDollarExchangeRatesTable (
+        id UUID  PRIMARY KEY,
+        Currency text,
+        ExchangeRate float,
+        LoadingTimeData timestamp
+        );"""
+        query2 = """INSERT INTO ExchangeCurrency.USDollarExchangeRatesTable
+        (Currency, ExchangeRate,LoadingTimeData )
+        VALUES ("USD",82.23232, toTimeStamp(now()));"""
+
+        import json
+from cassandra.query import ordered_dict_factory
+
+cluster = Cluster(['127.0.0.1'],auth_provider=auth_provider)
+session = cluster.connect("keyspace")
+session.row_factory = ordered_dict_factory
+
+
+def Execution():
+    session = ConnectionToCassandra()
+    try:
+        session.execute("""CREATE KEYSPACE IF NOT EXISTS ExchangeCurrency WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '1' };""")
+    except Exception as e:
+        print(e)
+
+#query result
+rows = self.session.execute_async("SELECT * FROM " + table)
+rows = self.return_result(rows, 'data')
+data = rows.result()
+
+# dump in json
+json.dumps(data)
+
+https://stackoverflow.com/questions/55568867/make-cassandra-object-json-serializable
+
+S3-API: http://localhost:9000
+minio-1              | Console: http://172.20.0.4:9001 http://127.0.0.1:9001
