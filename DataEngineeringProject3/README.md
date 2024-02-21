@@ -17,8 +17,9 @@
 <br /> Finally, data was transformed and loaded to Postgresql tables by mentioned-above Pyspark scripts  
 
 ## **FINAL RESULT OF PROJECT**
-<br /> As we can see, data is successfully loaded to tables in a Postgresql database:
-![alt text]()
+<br /> As we can see, data is successfully loaded to tables in a Postgresql database
+1. ![Currency](image link)
+2. ![Symbol](image link)
 
 ### MANUAL INSTRUCTION
 -- running 
