@@ -17,11 +17,12 @@
 <br /> Finally, data was transformed and loaded to Postgresql tables by mentioned-above Pyspark scripts  
 
 ## **FINAL RESULT OF PROJECT**
+<br /> Thanks to bash scripts, the whole process is automatically done.
 <br /> As we can see, data is successfully loaded to tables in a Postgresql database
 1. ![Currency](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject3/currency.jpg)
 2. ![Symbol](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject3/symbol.jpg)
 
-## MANUAL INSTRUCTION
+### MANUAL INSTRUCTION
 <br /> It is also possible to run this project manually without adding bash scripts.
 <br />To start with, it is necessary to run _docker compose up_ on the terminal in order to create and start containers in a  Docker.
 <br />DAGs needs to be executed in a Apache Airflow webserver. We can also do it by running it by bash commands:
