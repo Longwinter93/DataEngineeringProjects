@@ -25,19 +25,19 @@
 <br /> It is also possible to run this project manually without adding bash scripts.
 <br />To start with, it is necessary to run _docker compose up_ on the terminal in order to create and start containers in a  Docker.
 <br />DAGs needs to be executed in Apache Airflow. We can also do it by running it by bash commands:
-1. docker ps (looking at running containers)
-2. docker exec -it nameofairflowtriggerontainer  /bin/bash (it opens a docker container to run bash commands) 
-3. airflow dags list (it look for available dags)
-4. airflow dags trigger Extracting_data (it triggers dags)
+1. _docker ps_ (looking at running containers)
+2. _docker exec -it nameofairflowtriggerontainer  /bin/bash_ (it opens an **airflowtrigger** container to run bash commands) 
+3. _airflow dags list_ (it look for available dags)
+4. _airflow dags trigger Extracting_data_ (it triggers dags)
 
 <br /> Then, it is necessary to execute and run bash commands in a spark container:
 
-1) docker exec -it nameofsparkcontainer /bin/bash
-5) pip install --upgrade pip (upgrading pip)
-6) pip install -r requirements.txt (installing packages)
+1) _docker exec -it nameofsparkcontainer /bin/bash_
+5) _pip install --upgrade pip_ (upgrading pip)
+6) _pip install -r requirements.txt_ (installing packages)
 
 <br /> Running PySpark scripts
 
-1) spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py
-2) spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingSymbolDataToDWH.py
+1) _spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py_
+2) _spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingSymbolDataToDWH.py_
 
