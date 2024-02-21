@@ -5,7 +5,7 @@
 
 ## **SHORT DESCRIPTION OF PROJECT**
 <br /> To start with, it is necessary to copy this repository in your local driver by typing:
-<br /> _git clone https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3_
+<br /> _git clone https://github.com/Longwinter93/DataEngineeringProjects_. <br /> A DataEngineeringProject3 folder belongs to this project. It is necessery to open this folder in your explorer to see _docker-compose.yaml_.
 <br /> [A Docker Desktop](https://www.docker.com/products/docker-desktop/) is used to build and run container applications. To run create and start these containers, it is necessery to execute a `docker compose up` command on the terminal.
 <br /> Data was extracting from a webiste using Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/dags).
 <br /> Python scripts are written to hold data values by using [dataclasses](https://docs.python.org/3/library/dataclasses.html), then data was saved as JSON files in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) folder.
