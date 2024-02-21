@@ -1,5 +1,5 @@
 # MAIN GOAL OF PROJECT
-<br /> The main goal of this project was to extract data from websites that holds Currency Exchange Rates for selected currencies where the base currency is Euro. 
+<br /> The main goal of this project was to extract data from websites that holds Currency Exchange Rates for selected currencies where the base currency is Euro every day. 
 <br />In addition, symbols for selected currencies were also extracted.
 <br /> Next, data was transformed and loaded to a database in order to show the current exchange rate for selected currencies.
 
