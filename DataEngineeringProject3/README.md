@@ -6,8 +6,8 @@
 ## **SHORT DESCRIPTION OF PROJECT**
 <br /> To start with, [A Docker Desktop](https://www.docker.com/products/docker-desktop/) is used to build and run container applications. To run create and start these containers, it is necessery to execute a `docker compose up` command on the terminal.
 <br /> Data was extracting from a webiste using Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/dags).
-<br /> It holds data values by using [dataclasses](https://docs.python.org/3/library/dataclasses.html), then data was saved as JSON files in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) folder.
-<br />  This task is run by [Apache Airflow](https://airflow.apache.org/). 
+<br /> Python scripts are written to hold data values by using [dataclasses](https://docs.python.org/3/library/dataclasses.html), then data was saved as JSON files in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) folder.
+<br />  This task is triggered by [Apache Airflow](https://airflow.apache.org/). 
 <br />  This project contains a [ApacheAirflowTrigger](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) bash script.
 <br /> This script triggers automatically a new DAG after creating a  **airflow-triggerer** container. 
 <br /> [A Kafka client](https://kafka-python.readthedocs.io/en/master/apidoc/KafkaProducer.html) publishes records (Exchange Rate and Symbol data) to the Kafka Cluster at the same time.
