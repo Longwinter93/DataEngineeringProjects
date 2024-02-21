@@ -29,11 +29,13 @@
 2. docker exec -it nameofairflowtriggerontainer  /bin/bash (it opens a docker container to run bash commands) 
 3. airflow dags list (it look for available dags)
 4. airflow dags trigger Extracting_data (it triggers dags)
+
 <br /> Then, it is necessary to execute and run bash commands in a spark container:
 
 1) docker exec -it nameofsparkcontainer /bin/bash
 5) pip install --upgrade pip (upgrading pip)
 6) pip install -r requirements.txt (installing packages)
+
 <br /> Running PySpark scripts
 
 1) spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py
