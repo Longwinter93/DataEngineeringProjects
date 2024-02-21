@@ -4,9 +4,9 @@
 <br /> Next, data was transformed and loaded to a database in order to show the current exchange rate for selected currencies.
 
 ## **SHORT DESCRIPTION OF PROJECT**
-
+</br /> To start with, [A Docker Desktop](https://www.docker.com/products/docker-desktop/) is used to build and run container applications. To run create and start these containers, it is necessery to execute a __docker compose up__ command on the terminal.
 <br /> Data was extracting from a webiste using Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/dags).
-<br /> It holds data values by using [dataclasses](https://docs.python.org/3/library/dataclasses.html), then data was saved as JSON files.
+<br /> It holds data values by using [dataclasses](https://docs.python.org/3/library/dataclasses.html), then data was saved as JSON files in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) folder.
 <br />  This task is run by [Apache Airflow](https://airflow.apache.org/). 
 <br />  This project contains a [ApacheAirflowTrigger](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) bash script.
 <br /> It triggers automatically a new DAG after creating a  **airflow-triggerer** container. 
