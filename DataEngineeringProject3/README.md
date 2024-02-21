@@ -18,8 +18,8 @@
 
 ## **FINAL RESULT OF PROJECT**
 <br /> As we can see, data is successfully loaded to tables in a Postgresql database
-1. ![Currency](image link)
-2. ![Symbol](image link)
+1. ![Currency](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject3/currency.jpg)
+2. ![Symbol](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject3/symbol.jpg)
 
 ### MANUAL INSTRUCTION
 -- running 
