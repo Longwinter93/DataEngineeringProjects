@@ -24,11 +24,11 @@
 ## MANUAL INSTRUCTION
 <br /> It is also possible to run this project manually without adding bash scripts.
 <br />To start with, it is necessary to run _docker compose up_ on the terminal in order to create and start containers in a  Docker.
-<br />DAGs needs to be executed in Apache Airflow. We can also do it by running it by bash commands:
-1. _docker ps_ (looking at running containers)
-2. _docker exec -it nameofairflowtriggerontainer  /bin/bash_ (it opens an **airflowtrigger** container to run bash commands) 
-3. _airflow dags list_ (it look for available dags)
-4. _airflow dags trigger Extracting_data_ (it triggers dags)
+<br />DAGs needs to be executed in a Apache Airflow webserver. We can also do it by running it by bash commands:
+1. _docker ps_ (looking at running containers and finding a **airflow-triggerer** container)
+2. _docker exec -it nameofairflowtriggerontainer  /bin/bash_ (it opens an **airflow-triggerer** container to run bash commands) 
+3. _airflow dags list_ (it look for available a dag)
+4. _airflow dags trigger Extracting_data_ (it triggers a dag)
 
 <br /> Then, it is necessary to execute and run bash commands in a spark container:
 
