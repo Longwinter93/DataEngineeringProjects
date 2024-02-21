@@ -1,12 +1,27 @@
-# **SHORT DESCRIPTION OF PROJECT**
-Data was extracting from a webiste using Python scripts that are located in a [dags folder]( https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/dags).
-It holds data values by using [dataclasses](https://docs.python.org/3/library/dataclasses.html), then data was saved as JSON files.
-This task is run by Apache Airflow. 
-A project contains a bash script (scripts/ApacheAirflowTrigger.sh). It triggers automatically a new DAG after creating a  **airflow-triggerer** container
-Apache Kafka Producer was used to publish records to the Kafka Cluster. Then, a Kafka Consumer (client) consumes records from a Kafka Cluster. Then this data source was read by Structured Steaming Spark (PySpark)
-Then, data was transformed and loaded to postgresql tables by using pyspark scripts  
+# MAIN GOAL OF PROJECT
+<br /> The main goal of this project was to extract data from websites that holds Currency Exchange Rates for selected currencies where the base currency is Euro. 
+<br />In addition, symbols for selected currencies were also extracted.
+<br /> Next, data was transformed and loaded to a database in order to show the current exchange rate for selected currencies.
 
-## MANUAL INSTRUCTION
+## **SHORT DESCRIPTION OF PROJECT**
+<br /> To start with, [A Docker Desktop](https://www.docker.com/products/docker-desktop/) is used to build and run container applications. To run create and start these containers, it is necessery to execute a `docker compose up` command on the terminal.
+<br /> Data was extracting from a webiste using Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/dags).
+<br /> It holds data values by using [dataclasses](https://docs.python.org/3/library/dataclasses.html), then data was saved as JSON files in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) folder.
+<br />  This task is run by [Apache Airflow](https://airflow.apache.org/). 
+<br />  This project contains a [ApacheAirflowTrigger](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) bash script.
+<br /> This script triggers automatically a new DAG after creating a  **airflow-triggerer** container. 
+<br /> [A Kafka client](https://kafka-python.readthedocs.io/en/master/apidoc/KafkaProducer.html) publishes records (Exchange Rate and Symbol data) to the Kafka Cluster at the same time.
+<br /> Then, [PySpark](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/PySparkScripts) scripts are executed. It project also contains a [PySparkRunningScript](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3) bash script. This script is executed automatically after creating a  **spark** container.
+<br /> As a result, [A Kafka Consumer (client)](https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html) consumes records (Exchange Rate and Symbol data) from a Kafka Cluster.
+<br /> These records are read by [Structured Steaming Spark (PySpark)](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html). Tables are created in a [Postgresql](https://www.postgresql.org/)  database in the meanwhile.
+<br /> Finally, data was transformed and loaded to Postgresql tables by mentioned-above Pyspark scripts  
+
+## **FINAL RESULT OF PROJECT**
+<br /> As we can see, data is successfully loaded to tables in a Postgresql database
+1. ![Currency](image link)
+2. ![Symbol](image link)
+
+### MANUAL INSTRUCTION
 -- running 
 1) docker compose up (creating and starting containers)
 2) executing tasks in Apache Airflow
