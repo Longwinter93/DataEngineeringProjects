@@ -19,7 +19,7 @@ with DAG(
     dag_id='Extracting_data',
     description='Extracting currency data Exchange Rate and Symbol  from website and save it on a JSON file',
     start_date=datetime(2024,2, 1),
-    schedule_interval='30 4 * * *'
+    schedule_interval='*/5 * * * *'
 ) as dag:
     ExchangeRate= PythonOperator(
     task_id='Extracing_data_ExchangeRate',
