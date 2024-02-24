@@ -142,8 +142,8 @@ def UploadDataMinioExchangeCurrency():
     df =  dfUSDollarExchangeRates
     try: 
         client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='JxAgbCeIJmzD88vAf1Ez',  
-                secret_key='fVtKdvXm5JO3sTqYFvSNmtck7mqGFiFUKUVeQfR6', 
+                access_key='VshGY8lcAXJbUs0c1FOD',  
+                secret_key='9aGFZCb6P9ONsasQigboPzUYgF4Us3RP8J4Iu0uf', 
                     secure=False)  
         if not client.bucket_exists("usdollarexchangerates"):
             client.make_bucket("usdollarexchangerates")
@@ -157,7 +157,7 @@ def UploadDataMinioExchangeCurrency():
     csv_buffer = io.BytesIO(csv_bytes)
     try: 
         UploadCSVFileToObject = client.put_object("usdollarexchangerates", 
-                        'RawDataUSDollarExchangeRates.csv',  
+                        timestr + '-' + 'RawDataUSDollarExchangeRates.csv',  
                         data=csv_buffer, 
                         length=len(csv_bytes), 
                         content_type='application/csv')

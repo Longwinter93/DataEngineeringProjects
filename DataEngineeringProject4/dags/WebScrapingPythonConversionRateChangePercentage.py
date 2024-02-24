@@ -101,8 +101,8 @@ def UploadDataMinioExchangeRatePercentageChange():
     df = CreateDataFrameFromJSONPercentageChange(JSONConversionRateChangePercentage)
     try: 
         client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='JxAgbCeIJmzD88vAf1Ez',  
-                secret_key='fVtKdvXm5JO3sTqYFvSNmtck7mqGFiFUKUVeQfR6', 
+                access_key='VshGY8lcAXJbUs0c1FOD',  
+                secret_key='9aGFZCb6P9ONsasQigboPzUYgF4Us3RP8J4Iu0uf', 
                     secure=False)  
         if not client.bucket_exists("conversionrateexchange"):
             client.make_bucket("conversionrateexchange")
@@ -116,7 +116,7 @@ def UploadDataMinioExchangeRatePercentageChange():
     csv_buffer = io.BytesIO(csv_bytes)
     try: 
         UploadCSVFileToObject = client.put_object("conversionrateexchange", 
-                        'RawDataPercentChangeIntheLast24Hours.csv',  
+                        timestr + '-' + 'RawDataPercentChangeIntheLast24Hours.csv',  
                         data=csv_buffer, 
                         length=len(csv_bytes), 
                         content_type='application/csv')

@@ -21,7 +21,7 @@ with DAG(
     default_args=default_args,
     dag_id='PullingCurrencyExchangeRateDataCreatingApacheCassandraTablesUploadingDataInBucket',
     description='Extracting Currency Exchange Rates and Conversion Rate Change Percentage. Creating Apache Cassandra Tables. Uploading Data in a Bucket ',
-    start_date=datetime(2024,2, 17),
+    start_date=datetime(2024,2, 24),
     schedule_interval='30 4 * * *'
 ) as dag:
    CurrencyExchangeRate= PythonOperator(
@@ -52,8 +52,8 @@ with DAG(
         
     
      
-   CurrencyExchangeRate >> CreateTableDollarExchangeRates >> UploadingDataExchangeCurrencyInBucket
-   ConversionRateChangePercentage  >> CreateTablePercentacheChangeCassandra >>  UploadingDataExchangeRatePercentageChangeInBucket
+   UploadingDataExchangeCurrencyInBucket >> CurrencyExchangeRate >> CreateTableDollarExchangeRates  
+   UploadingDataExchangeRatePercentageChangeInBucket >> ConversionRateChangePercentage  >> CreateTablePercentacheChangeCassandra  
     
   
     
