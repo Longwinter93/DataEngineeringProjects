@@ -1,5 +1,5 @@
 # MAIN GOAL OF PROJECT
-<img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject3/Architecture.jpg" width="1000" height="500">
+<img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject3/Architecture.jpg" width="1000" height="400">
 <br /> The main goal of this project was to extract data from websites that holds Currency Exchange Rates for selected currencies where the base currency is Euro. Data is emitted in a continuous incremental manner with the goal of low-latency processing in every fifth minute.
 <br />In addition, symbols for selected currencies were also extracted.
 <br /> Next, data was transformed and loaded to a database in order to show the current exchange rate for selected currencies.
