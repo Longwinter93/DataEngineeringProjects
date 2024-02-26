@@ -66,14 +66,12 @@ def ConvertingDictToJSON(datadict: dict) -> json:
 
   
 def CreateDataFrameFromJSONPercentageChange(json):
-    
     dfPercentChangeIntheLast24Hours = pd.DataFrame.from_dict(json, orient="index")
     dfPercentChangeIntheLast24Hours.reset_index(inplace=True)
     dfPercentChangeIntheLast24Hours = dfPercentChangeIntheLast24Hours.set_axis(['ConversionCurrency', 'PercentChange'], axis=1)
     today_ts = pd.Timestamp.today()
     dfPercentChangeIntheLast24Hours['LOADINGDATA'] = today_ts
     dfPercentChangeIntheLast24Hours     
-
     return dfPercentChangeIntheLast24Hours       
 
 def SaveToCSVFile(dataframe):
@@ -109,8 +107,7 @@ def UploadDataMinioExchangeRatePercentageChange():
             print("\033[92m Bucket conversionrateexchange created successfully.")
               
     except Exception as err:
-        print(f"Error occurred: {err}")
-        
+        print(f"Error occurred: {err}")   
     ListOfAllAccessibleBuckets = print(f"\033[94m Total buckets:  {len(client.list_buckets())}"),  
     csv_bytes = df.to_csv().encode('utf-8')
     csv_buffer = io.BytesIO(csv_bytes)
