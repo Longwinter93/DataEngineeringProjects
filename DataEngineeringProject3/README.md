@@ -30,6 +30,7 @@
 <br /> It is also possible to run this project manually without adding bash scripts.
 <br />To start with, it is necessary to run _docker compose up_ on the terminal in order to create and start containers in a  Docker.
 <br />DAGs needs to be executed in a Apache Airflow webserver. We can also do it by running it by bash commands:
+
 1.```docker ps``` (looking at running containers and finding a **airflow-triggerer** container)
 2. ```docker exec -it nameofairflowtriggerontainer  /bin/bash``` (it opens an **airflow-triggerer** container to run bash commands) 
 3. ```airflow dags list``` (it look for available a dag)
