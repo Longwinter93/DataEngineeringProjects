@@ -6,7 +6,7 @@
 
 ## **SHORT DESCRIPTION OF PROJECT**
 <br /> To start with, it is necessary to copy this repository in your local driver by typing:
-<br /> ```ruby git clone https://github.com/Longwinter93/DataEngineeringProjects ```. 
+<br /> ```git clone https://github.com/Longwinter93/DataEngineeringProjects```. 
 <br /> A DataEngineeringProject3 folder belongs to this project. It is necessery to open this folder in your explorer to see _docker-compose.yaml_.
 <br /> [A Docker Desktop](https://www.docker.com/products/docker-desktop/) is used to build and run container applications. To run create and start these containers, it is necessery to execute a `docker compose up` command on the terminal.
 <br /> Data was extracting from a webiste using Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/dags).
@@ -30,21 +30,21 @@
 <br /> It is also possible to run this project manually without adding bash scripts.
 <br />To start with, it is necessary to run _docker compose up_ on the terminal in order to create and start containers in a  Docker.
 <br />DAGs needs to be executed in a Apache Airflow webserver. We can also do it by running it by bash commands:
-1. _docker ps_ (looking at running containers and finding a **airflow-triggerer** container)
-2. _docker exec -it nameofairflowtriggerontainer  /bin/bash_ (it opens an **airflow-triggerer** container to run bash commands) 
-3. _airflow dags list_ (it look for available a dag)
-4. _airflow dags trigger Extracting_data_ (it triggers a dag)
+1.```docker ps``` (looking at running containers and finding a **airflow-triggerer** container)
+2. ```docker exec -it nameofairflowtriggerontainer  /bin/bash``` (it opens an **airflow-triggerer** container to run bash commands) 
+3. ```airflow dags list``` (it look for available a dag)
+4. ```airflow dags trigger Extracting_data``` (it triggers a dag)
 
 <br /> Then, it is necessary to execute and run bash commands in a spark container:
 
-1) _docker exec -it nameofsparkcontainer /bin/bash_
-5) _pip install --upgrade pip_ (upgrading pip)
-6) _pip install -r requirements.txt_ (installing packages)
+1) ```docker exec -it nameofsparkcontainer /bin/bash```
+5) ```pip install --upgrade pip``` (upgrading pip)
+6) ```pip install -r requirements.txt``` (installing packages)
 
 <br /> Running PySpark scripts
 
-1) _spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py_
-2) _spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingSymbolDataToDWH.py_
+1) ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py```
+2) ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingSymbolDataToDWH.py```
 
 
 ###### To create this project, these sites were used [Apache Kafka](https://kafka.apache.org/),[Apache Airflow](https://airflow.apache.org/), [Kafka-Python](https://kafka-python.readthedocs.io/en/master/), [Docker Desktop](https://www.docker.com/products/docker-desktop/), [Apache Spark](https://spark.apache.org/),  [Structured Streaming + Kafka Integration Guide](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html) & [PostgreSQL](https://www.postgresql.org/).
