@@ -31,21 +31,21 @@
 <br />To start with, it is necessary to run _docker compose up_ on the terminal in order to create and start containers in a  Docker.
 <br />DAGs needs to be executed in a Apache Airflow webserver. We can also do it by running it by bash commands:
 
-1.```docker ps``` (looking at running containers and finding a **airflow-triggerer** container)
-2. ```docker exec -it nameofairflowtriggerontainer  /bin/bash``` (it opens an **airflow-triggerer** container to run bash commands) 
-3. ```airflow dags list``` (it look for available a dag)
-4. ```airflow dags trigger Extracting_data``` (it triggers a dag)
+<br />1.```docker ps``` (looking at running containers and finding a **airflow-triggerer** container)
+<br />2. ```docker exec -it nameofairflowtriggerontainer  /bin/bash``` (it opens an **airflow-triggerer** container to run bash commands) 
+<br />3. ```airflow dags list``` (it look for available a dag)
+<br />4. ```airflow dags trigger Extracting_data``` (it triggers a dag)
 
 <br /> Then, it is necessary to execute and run bash commands in a spark container:
 
-1) ```docker exec -it nameofsparkcontainer /bin/bash```
-5) ```pip install --upgrade pip``` (upgrading pip)
-6) ```pip install -r requirements.txt``` (installing packages)
+<br />1) ```docker exec -it nameofsparkcontainer /bin/bash```
+<br />2) ```pip install --upgrade pip``` (upgrading pip)
+<br />3) ```pip install -r requirements.txt``` (installing packages)
 
 <br /> Running PySpark scripts
 
-1) ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py```
-2) ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingSymbolDataToDWH.py```
+<br />1) ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py```
+<br />2) ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingSymbolDataToDWH.py```
 
 
 ###### To create this project, these sites were used [Apache Kafka](https://kafka.apache.org/),[Apache Airflow](https://airflow.apache.org/), [Kafka-Python](https://kafka-python.readthedocs.io/en/master/), [Docker Desktop](https://www.docker.com/products/docker-desktop/), [Apache Spark](https://spark.apache.org/),  [Structured Streaming + Kafka Integration Guide](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html) & [PostgreSQL](https://www.postgresql.org/).
