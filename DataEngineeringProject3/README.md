@@ -38,14 +38,14 @@
 
 <br /> Then, it is necessary to execute and run bash commands in a spark container:
 
-<br />1) ```docker exec -it nameofsparkcontainer /bin/bash```
-<br />2) ```pip install --upgrade pip``` (upgrading pip)
-<br />3) ```pip install -r requirements.txt``` (installing packages)
+<br />1. ```docker exec -it nameofsparkcontainer /bin/bash```
+<br />2. ```pip install --upgrade pip``` (upgrading pip)
+<br />3. ```pip install -r requirements.txt``` (installing packages)
 
 <br /> Running PySpark scripts
 
-<br />1) ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py```
-<br />2) ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingSymbolDataToDWH.py```
+<br />1. ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingExchangeRateDataToDWH.py```
+<br />2. ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 LoadingSymbolDataToDWH.py```
 
 
 ###### To create this project, these sites were used [Apache Kafka](https://kafka.apache.org/),[Apache Airflow](https://airflow.apache.org/), [Kafka-Python](https://kafka-python.readthedocs.io/en/master/), [Docker Desktop](https://www.docker.com/products/docker-desktop/), [Apache Spark](https://spark.apache.org/),  [Structured Streaming + Kafka Integration Guide](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html) & [PostgreSQL](https://www.postgresql.org/).
