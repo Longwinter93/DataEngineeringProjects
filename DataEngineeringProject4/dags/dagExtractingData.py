@@ -2,8 +2,8 @@ from airflow import DAG
 from datetime import timedelta, datetime
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.python_operator import PythonOperator 
-from WebScrapingPythonExchangeCurrency import finalExecutionOfExchangeRate, UploadDataMinioExchangeCurrency
-from WebScrapingPythonConversionRateChangePercentage import finalExecutionOfRateChangePercentage, UploadDataMinioExchangeRatePercentageChange
+from WebScrapingPythonExchangeCurrency import finalExecutionOfExchangeRate, UploadDataMinioExchangeCurrency, PublishingUSDollarExchangeRatesRecordsToTopic
+from WebScrapingPythonConversionRateChangePercentage import finalExecutionOfRateChangePercentage, UploadDataMinioExchangeRatePercentageChange,PublishingPercentageChangeExchangeRateRecordsToTopic
 from CassandraTablePercentageChangeLast24Hours import FinalCreateTablePercentacheChangeCassandra
 from CassandraTablesDollarExchangeRates import  FinalCreateTableDollarExchangeRates
 from airflow.providers.postgres.operators.postgres import PostgresOperator
@@ -21,7 +21,7 @@ with DAG(
     default_args=default_args,
     dag_id='PullingCurrencyExchangeRateDataCreatingApacheCassandraTablesUploadingDataInBucket',
     description='Extracting Currency Exchange Rates and Conversion Rate Change Percentage. Creating Apache Cassandra Tables. Uploading Data in a Bucket ',
-    start_date=datetime(2024,2, 24),
+    start_date=datetime(2024,3, 5),
     schedule_interval='30 4 * * *'
 ) as dag:
    CurrencyExchangeRate= PythonOperator(
@@ -48,12 +48,21 @@ with DAG(
    task_id='Uploads_data_from_a_file_ExchangeCurrencyUSD_to_bucket',
    python_callable=UploadDataMinioExchangeCurrency
    )
+   PublishingRecordsToTheKafkaClusterConversionRateExchange= PythonOperator(
+   task_id='Publishing_ConversionExchangeRate_Data_To_Kafka_Cluster',
+   python_callable=PublishingPercentageChangeExchangeRateRecordsToTopic
+   )
+   PublishingRecordsToTheKafkaClusterExchangeCurrency= PythonOperator(
+   task_id='Publishing_Exchange_Curerncy_Data_To_Kafka_Cluster',
+   python_callable=PublishingUSDollarExchangeRatesRecordsToTopic
+   )
+    
     
         
     
      
-   UploadingDataExchangeCurrencyInBucket >> CurrencyExchangeRate >> CreateTableDollarExchangeRates  
-   UploadingDataExchangeRatePercentageChangeInBucket >> ConversionRateChangePercentage  >> CreateTablePercentacheChangeCassandra  
+   UploadingDataExchangeCurrencyInBucket >> CurrencyExchangeRate >> CreateTableDollarExchangeRates >> PublishingRecordsToTheKafkaClusterExchangeCurrency
+   UploadingDataExchangeRatePercentageChangeInBucket >> ConversionRateChangePercentage  >> CreateTablePercentacheChangeCassandra  >> PublishingRecordsToTheKafkaClusterConversionRateExchange
     
   
     

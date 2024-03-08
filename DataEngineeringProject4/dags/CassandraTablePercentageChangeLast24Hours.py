@@ -20,11 +20,12 @@ def CreateTable():
     session = ConnectionToCassandra()
     session.set_keyspace('exchangecurrency')
     query = """CREATE TABLE IF NOT EXISTS exchangecurrency.percentagechangelast24hours (
-        id int PRIMARY KEY,
-        ConversionRate text,
-        PercentageChange float,
-        LoadingTimeData timestamp
-        );"""
+        id int,
+        conversionrate text,
+        percentagechange text,
+        loadingtimedata timestamp,
+        PRIMARY KEY (loadingtimedata ,id ))
+        WITH CLUSTERING ORDER BY (id ASC);"""
     try:
         return session.execute(query)
     except Exception as e:

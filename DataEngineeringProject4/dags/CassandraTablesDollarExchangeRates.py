@@ -23,11 +23,12 @@ def CreateTable():
     session = ConnectionToCassandra()
     session.set_keyspace('exchangecurrency')
     query = """CREATE TABLE IF NOT EXISTS exchangecurrency.USDollarExchangeRatesTable (
-        id int PRIMARY KEY, 
-        Currency text,
-        ExchangeRate float,
-        LoadingTimeData timestamp
-        );"""
+        id int, 
+        currency text,
+        exchangerate decimal,
+        loadingtimedata timestamp,
+        PRIMARY KEY (loadingtimedata ,id ))
+        WITH CLUSTERING ORDER BY (id ASC);"""
     try:
         return session.execute(query)
     except Exception as e:

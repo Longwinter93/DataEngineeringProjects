@@ -6,6 +6,9 @@ import pandas as pd
 import logging
 import io  
 from minio import Minio 
+from kafka import KafkaProducer 
+from kafka.errors import KafkaError
+
 
 def MakingRequest(url: str) -> str:
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
@@ -142,8 +145,8 @@ def UploadDataMinioExchangeCurrency():
     df =  dfUSDollarExchangeRates
     try: 
         client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='VshGY8lcAXJbUs0c1FOD',  
-                secret_key='9aGFZCb6P9ONsasQigboPzUYgF4Us3RP8J4Iu0uf', 
+                access_key='kj4Ud2U786iqb8pI8IH9',  
+                secret_key='ea4Cv2J0H7g0kpYqsNXNdT6QcuQlx24DfqL8Xxxq', 
                     secure=False)  
         if not client.bucket_exists("usdollarexchangerates"):
             client.make_bucket("usdollarexchangerates")
@@ -170,13 +173,31 @@ def UploadDataMinioExchangeCurrency():
         print(f"Error occurred: {err}")
 
 
+def CreateKafkaProducer():
+    localhost = 'host.docker.internal:29092' 
+    return KafkaProducer(bootstrap_servers=[localhost])
+
+def PublishingUSDollarExchangeRatesRecordsToTopic():
+    producer = CreateKafkaProducer()
+    topic_name = 'exchangecurrency' # topic where the message will be published
+    DictionaryDataCurrencyValues = DictionaryOfExchangeRate()
+    JSONCurrencyValues = ConvertingDictToJSON(DictionaryDataCurrencyValues)
+    
+    StreamingDataDictUSDollarExchangeRates = JSONCurrencyValues
+    end_time = time.time() + 30 # the script will run for 120 seconds
+    while True:
+        if time.time() > end_time:
+            break  
+        producer.send(topic_name, json.dumps(StreamingDataDictUSDollarExchangeRates).encode('utf-8'))
+        time.sleep(10)
     
 if __name__ == "__main__":
     finalExecutionOfExchangeRate()
     print("\033[92m Data ExchangeCurrency was successfully saved as a CSV and JSON files")
     UploadDataMinioExchangeCurrency()
     print("\033[92m Data ExchangeCurrency was successfully loaded to an object in a bucket")
-
+    PublishingUSDollarExchangeRatesRecordsToTopic()
+    print("\033[92m Publishing USDollarExchangeRates events to Kafka Cluster")
     
     
 

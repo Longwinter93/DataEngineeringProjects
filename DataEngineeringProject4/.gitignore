@@ -10,3 +10,4 @@ plugins
 minioaccesskey.txt
 miniotest.py
 __pycache__
+minio_data

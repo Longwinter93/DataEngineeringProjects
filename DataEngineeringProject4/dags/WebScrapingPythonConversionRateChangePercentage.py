@@ -6,6 +6,8 @@ import pandas as pd
 import logging
 import io  
 from minio import Minio 
+from kafka import KafkaProducer 
+from kafka.errors import KafkaError
 
 def MakingRequest(url: str) -> str:
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
@@ -99,8 +101,8 @@ def UploadDataMinioExchangeRatePercentageChange():
     df = CreateDataFrameFromJSONPercentageChange(JSONConversionRateChangePercentage)
     try: 
         client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='VshGY8lcAXJbUs0c1FOD',  
-                secret_key='9aGFZCb6P9ONsasQigboPzUYgF4Us3RP8J4Iu0uf', 
+                access_key='kj4Ud2U786iqb8pI8IH9',  
+                secret_key='ea4Cv2J0H7g0kpYqsNXNdT6QcuQlx24DfqL8Xxxq', 
                     secure=False)  
         if not client.bucket_exists("conversionrateexchange"):
             client.make_bucket("conversionrateexchange")
@@ -126,11 +128,30 @@ def UploadDataMinioExchangeRatePercentageChange():
         print(f"Error occurred: {err}")
 
 
+def CreateKafkaProducer():
+    localhost = 'host.docker.internal:29092' 
+    return KafkaProducer(bootstrap_servers=[localhost])
+
+def PublishingPercentageChangeExchangeRateRecordsToTopic():
+    producer = CreateKafkaProducer()
+    topic_name = 'percentageexchangerate' # topic where the message will be published
+    RateChangePercentage = DictionaryConversionRateChangePercentage()
+    JSONConversionRateChangePercentage = ConvertingDictToJSON(RateChangePercentage)
+ 
+    StreamingDataDictPercentageChangeExchangeRate = JSONConversionRateChangePercentage
+    end_time = time.time() + 30 # the script will run for 120 seconds
+    while True:
+        if time.time() > end_time:
+            break  
+        producer.send(topic_name, json.dumps(StreamingDataDictPercentageChangeExchangeRate).encode('utf-8'))
+        time.sleep(10)
+        
     
 if __name__ == "__main__":
     finalExecutionOfRateChangePercentage()
     print("\033[92m Data Conversion Rate Change Percentage was successfully saved as a CSV and JSON files")
     UploadDataMinioExchangeRatePercentageChange()
     print("\033[92m Data Conversion Rate Change Percentage was successfully loaded to an object in a bucket")
-
+    PublishingPercentageChangeExchangeRateRecordsToTopic()
+    print("\033[92m Publishing PercentageChangeExchangeRate events to Kafka Cluster")
     
