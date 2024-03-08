@@ -1,7 +1,7 @@
 Adding a new Data Engineering Project ;) 
 The project is in the process of doing!
 
-
+-- Addin to all scripts  notes that print it works and so on
 -- implementing kafka - learning about it and it creates topic
 -- correcting code and putting corrections on it
 -- running automatically all script codes and download jar drivers automatically
