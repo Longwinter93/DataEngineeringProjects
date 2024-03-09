@@ -35,7 +35,10 @@ def FinalCreateTablePercentacheChangeCassandra():
     ConnectionToCassandra()
     Execution()
     CreateTable()
+    print("\033[92m A percentagechangelast24hours table was successfully created")
 
+#Running this function if this file is run as a script from the command line. 
+#However, if the file is imported from another file, this will not be executed.  
 if __name__ == "__main__":
     FinalCreateTablePercentacheChangeCassandra()
    

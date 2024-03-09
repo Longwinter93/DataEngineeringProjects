@@ -3,12 +3,8 @@ import requests
 import json
 import time
 import pandas as pd
-import logging
-import io  
-from minio import Minio 
-from kafka import KafkaProducer 
-from kafka.errors import KafkaError
 
+#Selecting Percentage of Conversion Exchange Rate from website
 def MakingRequest(url: str) -> str:
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
     r = requests.get(URL)
@@ -52,6 +48,7 @@ def DictionaryConversionRateChangePercentage():
     RateChangePercentage = ConvertingListComprehensionToDictionary(ConversionCurrency,ChangePercentage) 
     return RateChangePercentage
 
+#Saving fetched data as JSON files
 def SaveToJSONfile(data: dict) -> json:
     timestr = time.strftime("%d-%m-%Y")
     try:
@@ -66,7 +63,6 @@ def ConvertingDictToJSON(datadict: dict) -> json:
     dataUSDollarExchangeRatesTable = json.loads(JSONUSDollarExchangeRatesTable) 
     return dataUSDollarExchangeRatesTable    
 
-  
 def CreateDataFrameFromJSONPercentageChange(json):
     dfPercentChangeIntheLast24Hours = pd.DataFrame.from_dict(json, orient="index")
     dfPercentChangeIntheLast24Hours.reset_index(inplace=True)
@@ -74,13 +70,15 @@ def CreateDataFrameFromJSONPercentageChange(json):
     today_ts = pd.Timestamp.today()
     dfPercentChangeIntheLast24Hours['LOADINGDATA'] = today_ts
     dfPercentChangeIntheLast24Hours     
-    return dfPercentChangeIntheLast24Hours       
-
+    return dfPercentChangeIntheLast24Hours     
+  
+#Saving fetched data as csv files
 def SaveToCSVFile(dataframe):
     timestr = time.strftime("%d-%m-%Y")
     CSV = dataframe.to_csv(timestr + '-' + 'PercentChangeIntheLast24Hours.csv')
-    return CSV        
-
+    return CSV   
+     
+#Final function that fetches data from webiste and save it as JSON and csv files       
 def finalExecutionOfRateChangePercentage():
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
     MakingRequest(URL)
@@ -91,67 +89,9 @@ def finalExecutionOfRateChangePercentage():
     df = CreateDataFrameFromJSONPercentageChange(JSONConversionRateChangePercentage)
     print(f"'\033[96m' DataFrame of of the Percetange of the Rate Change: \n {df}")
     SaveToCSVFile(df)
+    print("\033[92m Data Conversion Rate Change Percentage was successfully saved as CSV and JSON files")
     
-def UploadDataMinioExchangeRatePercentageChange():
-    timestr = time.strftime("%d-%m-%Y")
-    URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
-    MakingRequest(URL)
-    RateChangePercentage = DictionaryConversionRateChangePercentage()
-    JSONConversionRateChangePercentage = ConvertingDictToJSON(RateChangePercentage)
-    df = CreateDataFrameFromJSONPercentageChange(JSONConversionRateChangePercentage)
-    try: 
-        client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='kj4Ud2U786iqb8pI8IH9',  
-                secret_key='ea4Cv2J0H7g0kpYqsNXNdT6QcuQlx24DfqL8Xxxq', 
-                    secure=False)  
-        if not client.bucket_exists("conversionrateexchange"):
-            client.make_bucket("conversionrateexchange")
-            print("\033[92m Bucket conversionrateexchange created successfully.")
-              
-    except Exception as err:
-        print(f"Error occurred: {err}")   
-    ListOfAllAccessibleBuckets = print(f"\033[94m Total buckets:  {len(client.list_buckets())}"),  
-    csv_bytes = df.to_csv().encode('utf-8')
-    csv_buffer = io.BytesIO(csv_bytes)
-    try: 
-        UploadCSVFileToObject = client.put_object("conversionrateexchange", 
-                        timestr + '-' + 'RawDataPercentChangeIntheLast24Hours.csv',  
-                        data=csv_buffer, 
-                        length=len(csv_bytes), 
-                        content_type='application/csv')
-        
-        objects = client.list_objects("conversionrateexchange")
-        for obj in objects:
-            ListObjectInformationOfBucket = print(f"\033[95m List of Bucket Object {obj}")
-        return  UploadCSVFileToObject , ListObjectInformationOfBucket, ListOfAllAccessibleBuckets
-    except Exception as err:
-        print(f"Error occurred: {err}")
-
-
-def CreateKafkaProducer():
-    localhost = 'host.docker.internal:29092' 
-    return KafkaProducer(bootstrap_servers=[localhost])
-
-def PublishingPercentageChangeExchangeRateRecordsToTopic():
-    producer = CreateKafkaProducer()
-    topic_name = 'percentageexchangerate' # topic where the message will be published
-    RateChangePercentage = DictionaryConversionRateChangePercentage()
-    JSONConversionRateChangePercentage = ConvertingDictToJSON(RateChangePercentage)
- 
-    StreamingDataDictPercentageChangeExchangeRate = JSONConversionRateChangePercentage
-    end_time = time.time() + 30 # the script will run for 120 seconds
-    while True:
-        if time.time() > end_time:
-            break  
-        producer.send(topic_name, json.dumps(StreamingDataDictPercentageChangeExchangeRate).encode('utf-8'))
-        time.sleep(10)
-        
-    
+#Running this function if this file is run as a script from the command line. 
+#However, if the file is imported from another file, this will not be executed.      
 if __name__ == "__main__":
     finalExecutionOfRateChangePercentage()
-    print("\033[92m Data Conversion Rate Change Percentage was successfully saved as a CSV and JSON files")
-    UploadDataMinioExchangeRatePercentageChange()
-    print("\033[92m Data Conversion Rate Change Percentage was successfully loaded to an object in a bucket")
-    PublishingPercentageChangeExchangeRateRecordsToTopic()
-    print("\033[92m Publishing PercentageChangeExchangeRate events to Kafka Cluster")
-    

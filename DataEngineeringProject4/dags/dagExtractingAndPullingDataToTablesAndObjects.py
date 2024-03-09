@@ -2,13 +2,18 @@ from airflow import DAG
 from datetime import timedelta, datetime
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.python_operator import PythonOperator 
-from WebScrapingPythonExchangeCurrency import finalExecutionOfExchangeRate, UploadDataMinioExchangeCurrency, PublishingUSDollarExchangeRatesRecordsToTopic
-from WebScrapingPythonConversionRateChangePercentage import finalExecutionOfRateChangePercentage, UploadDataMinioExchangeRatePercentageChange,PublishingPercentageChangeExchangeRateRecordsToTopic
+from WebScrapingPythonExchangeCurrency import finalExecutionOfExchangeRate
+from UploadingExchangeCurrencyDataToMinioBucket import UploadDataMinioExchangeCurrency
+from PublishingExchangeCurrencyRecordsToKafkaCluster import PublishingUSDollarExchangeRatesRecordsToTopic
+from WebScrapingPythonPercentageConversionExchangeRate import finalExecutionOfRateChangePercentage
+from UploadingPercentageConversionExchangeRateToMinioBucket import UploadDataMinioExchangeRatePercentageChange
+from PublishingPercentageConversionExchangeRateToKafkaCluster import PublishingPercentageChangeExchangeRateRecordsToTopic
 from CassandraTablePercentageChangeLast24Hours import FinalCreateTablePercentacheChangeCassandra
 from CassandraTablesDollarExchangeRates import  FinalCreateTableDollarExchangeRates
-from airflow.providers.postgres.operators.postgres import PostgresOperator
+from CassandraRecordsTable import FinalCreateTableRecordTableAndRegisteringRecords
 
-
+#Creating a basic pipeline:
+#1. A dictionary of default parameters were defined to use to create tasks
 default_args = {
         'owner' : 'Lukasz',
         'retries': 5,
@@ -16,12 +21,12 @@ default_args = {
 
 }
 
-
+#Instantiage a DAG
 with DAG(
     default_args=default_args,
     dag_id='PullingCurrencyExchangeRateDataCreatingApacheCassandraTablesUploadingDataInBucket',
     description='Extracting Currency Exchange Rates and Conversion Rate Change Percentage. Creating Apache Cassandra Tables. Uploading Data in a Bucket ',
-    start_date=datetime(2024,3, 5),
+    start_date=datetime(2024,3, 9),
     schedule_interval='30 4 * * *'
 ) as dag:
    CurrencyExchangeRate= PythonOperator(
@@ -56,13 +61,14 @@ with DAG(
    task_id='Publishing_Exchange_Curerncy_Data_To_Kafka_Cluster',
    python_callable=PublishingUSDollarExchangeRatesRecordsToTopic
    )
+   RecordingDAGs= PythonOperator(
+   task_id='RecordingDAGSInATable',
+   python_callable=FinalCreateTableRecordTableAndRegisteringRecords
+   )
     
     
-        
-    
-     
-   UploadingDataExchangeCurrencyInBucket >> CurrencyExchangeRate >> CreateTableDollarExchangeRates >> PublishingRecordsToTheKafkaClusterExchangeCurrency
-   UploadingDataExchangeRatePercentageChangeInBucket >> ConversionRateChangePercentage  >> CreateTablePercentacheChangeCassandra  >> PublishingRecordsToTheKafkaClusterConversionRateExchange
+   [UploadingDataExchangeCurrencyInBucket,  CurrencyExchangeRate] >> CreateTableDollarExchangeRates >> PublishingRecordsToTheKafkaClusterExchangeCurrency  >> RecordingDAGs
+   [UploadingDataExchangeRatePercentageChangeInBucket,  ConversionRateChangePercentage ] >>  CreateTablePercentacheChangeCassandra  >> PublishingRecordsToTheKafkaClusterConversionRateExchange >> RecordingDAGs
     
   
     

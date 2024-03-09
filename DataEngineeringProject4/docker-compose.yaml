@@ -64,7 +64,6 @@ services:
       - CASSANDRA_USERNAME=cassandra
       - CASSANDRA_PASSWORD=cassandra
     volumes:
-      - ./:/home
       - ./cassandradata:/var/lib/cassandra
     networks:
       - mynetwork
@@ -82,8 +81,9 @@ services:
       - '8085:8085'
     volumes:
       - ./requirements.txt:/opt/bitnami/spark/requirements.txt
-      - ./PySparkScripts/LoadingConversionRateChangePercentageToTable.py:/opt/bitnami/spark/LoadingConversionRateChangePercentageToTable.py
-      - ./PySparkScripts/LoadingExchangeCurrencyDataToTable.py:/opt/bitnami/spark/LoadingExchangeCurrencyDataToTable.py
+      - ./PySparkScriptsAndBashScript/LoadingConversionRateChangePercentageToTable.py:/opt/bitnami/spark/LoadingConversionRateChangePercentageToTable.py
+      - ./PySparkScriptsAndBashScript/LoadingExchangeCurrencyDataToTable.py:/opt/bitnami/spark/LoadingExchangeCurrencyDataToTable.py
+      - ./PySparkScriptsAndBashScript/BashScriptForRunningPySparkScripts.sh:/opt/bitnami/spark/BashScriptForRunningPySparkScripts.sh
       - ./ApacheCassandraDriver/spark-cassandra-connector-assembly_2.12-3.4.1.jar:/opt/bitnami/spark/jars/spark-cassandra-connector-assembly_2.12-3.4.1.jar
     networks:
       - mynetwork

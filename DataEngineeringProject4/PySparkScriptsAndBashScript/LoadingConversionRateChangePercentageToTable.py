@@ -1,10 +1,10 @@
 from pyspark import SparkContext
-from pyspark.sql import SparkSession,functions, Window
+from pyspark.sql import SparkSession,functions, Window, Row
 from pyspark.sql.functions import *
 from pyspark.sql.types import IntegerType,BooleanType,DateType, TimestampType,LongType,DecimalType,  DoubleType, StringType, ArrayType, LongType,StructField, StructType
 from pyspark.sql.types import StructType,StructField,FloatType,IntegerType,StringType
 from pyspark.sql.functions import from_json,col,current_timestamp
-import logging
+from cassandra.cluster import Cluster
 
 
 
@@ -85,10 +85,23 @@ def LoadingDataToDWH():
         .options(table="percentagechangelast24hours", keyspace="exchangecurrency").save()
     return LoadingDataFrameToTable
 
+def LoadingDataToRecordsTable():
+    try:
+        cluster = Cluster(['cassandra'],port=9042)
+        session = cluster.connect() 
+        session.set_keyspace('exchangecurrency')
+        query = """INSERT INTO exchangecurrency.recordtable
+        (id, nameoftransaction, timeofloadingdata)
+        VALUES (5, 'A percentagechangelast24hours table was populated', toTimeStamp(now()));"""
+        return session.execute(query)
+    except Exception as e:
+        print(e)       
     
-    
-
 if __name__ == "__main__":
     LoadingDataToDWH()
-    logging.info("A percentagechangelast24hours was successfully populated.")
     print("Loading Conversion Rate Change Percentage Data To DWH was successfully done")
+    LoadingDataToRecordsTable()
+    print("Record Table was successfully populated")
+
+    
+    
