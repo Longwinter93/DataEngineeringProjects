@@ -64,7 +64,6 @@ services:
       - CASSANDRA_USERNAME=cassandra
       - CASSANDRA_PASSWORD=cassandra
     volumes:
-      - ./:/home
       - ./cassandradata:/var/lib/cassandra
     networks:
       - mynetwork
@@ -82,7 +81,10 @@ services:
       - '8085:8085'
     volumes:
       - ./requirements.txt:/opt/bitnami/spark/requirements.txt
-      - ./CassandraScripts/CassandraTablesDollarExchangeRates.py:/opt/bitnami/spark/CassandraTablesDollarExchangeRates.py
+      - ./PySparkScriptsAndBashScript/LoadingConversionRateChangePercentageToTable.py:/opt/bitnami/spark/LoadingConversionRateChangePercentageToTable.py
+      - ./PySparkScriptsAndBashScript/LoadingExchangeCurrencyDataToTable.py:/opt/bitnami/spark/LoadingExchangeCurrencyDataToTable.py
+      - ./PySparkScriptsAndBashScript/BashScriptForRunningPySparkScripts.sh:/opt/bitnami/spark/BashScriptForRunningPySparkScripts.sh
+      - ./ApacheCassandraDriver/spark-cassandra-connector-assembly_2.12-3.4.1.jar:/opt/bitnami/spark/jars/spark-cassandra-connector-assembly_2.12-3.4.1.jar
     networks:
       - mynetwork
 
@@ -92,16 +94,12 @@ services:
       - '9000:9000'
       - '9001:9001'
     volumes:
-      - ./minio_data:/data
+      - ./minio_data:/bitnami/minio/data
     environment:
       - MINIO_ROOT_USER=miniousername
       - MINIO_ROOT_PASSWORD=miniopassword
-      - MINIO_DEFAULT_BUCKETS=bucketname
-      - MINIO_ACCESS_KEY=weak_access_key
-      - MINIO_SECRET_KEY=weak_secret_key
     networks:
       - mynetwork
-      
 
   airflow-webserver:
     <<: *airflow-common

@@ -3,10 +3,9 @@ import requests
 import json
 import time
 import pandas as pd
-import logging
-import io  
-from minio import Minio 
 
+#Making a request to web page to obtain a response called r  
+#Using a Beautiful Soup library to scrape information from web pages to select Exchange Rate Currency data
 def MakingRequest(url: str) -> str:
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
     r = requests.get(URL)
@@ -27,28 +26,19 @@ def PullingDataFromWebsite():
     soup = BeautifulSoup(r.text, 'html.parser')
     return soup
     
-
-
-
 def SelectingData():
     soup = PullingDataFromWebsite()
     for Currency in soup.find_all('td'):
-        print(Currency.text)
-        
+        print(Currency.text)     
     currencies=soup.find_all('td')
     ListComprehension = [title.text for title in currencies]
-
     print(ListComprehension)
     
 def SavingDataToListComprehensionCurrency(currency: list) -> list:
     return [title.text for title in currency[::3]]
 
-
-
 def SavingDataToListComprehensionValues(ValuesOfCurrency: list) -> list:
     return [title.text for title in ValuesOfCurrency[1::3]]
-
-
 
 def ConvertingListComprehensionToDictionary(Currency: list, Value: list) -> dict:
     my_dict = {Currency[i]: Value[i] for i in range(len(Currency))}
@@ -61,10 +51,8 @@ def ConvertingListComprehensionToDicionary():
     ListComprehensionCurrency = SavingDataToListComprehensionCurrency(currencies)
     Values = soup.find_all('td')
     ListComprehensionValuesOfCurrency = SavingDataToListComprehensionValues(Values)
-    
     DictionaryDataCurrencyValues = ConvertingListComprehensionToDictionary(ListComprehensionCurrency,ListComprehensionValuesOfCurrency)
     ConvertingListComprehensionToDictionary(ListComprehensionCurrency,ListComprehensionValuesOfCurrency)
-
     return print(f"\033[94m'Dictionary of ExchangeRate: \n {ConvertingListComprehensionToDictionary(ListComprehensionCurrency,ListComprehensionValuesOfCurrency)}")
     
 def DictionaryOfExchangeRate():
@@ -74,10 +62,10 @@ def DictionaryOfExchangeRate():
     ListComprehensionCurrency = SavingDataToListComprehensionCurrency(currencies)
     Values = soup.find_all('td')
     ListComprehensionValuesOfCurrency = SavingDataToListComprehensionValues(Values)
-    
     DictionaryDataCurrencyValues = ConvertingListComprehensionToDictionary(ListComprehensionCurrency,ListComprehensionValuesOfCurrency)
     return DictionaryDataCurrencyValues
 
+#Saving fetched data as JSON files
 def SaveToJSONfile(data: dict) -> json:
     timestr = time.strftime("%d-%m-%Y")
     try:
@@ -86,12 +74,14 @@ def SaveToJSONfile(data: dict) -> json:
     except FileNotFoundError as ex:
         print(ex)
         
+#Converting Dictionary to JSON      
 def ConvertingDictToJSON(datadict: dict) -> json:
     JSONUSDollarExchangeRatesTable = json.dumps(datadict)
     JSONUSDollarExchangeRatesTable
     dataUSDollarExchangeRatesTable = json.loads(JSONUSDollarExchangeRatesTable) 
     return dataUSDollarExchangeRatesTable
 
+#Creating DataFrame from JSON
 def CreateDataFrameFromJSON(json):
     dfUSDollarExchangeRates = pd.DataFrame.from_dict(json, orient="index")
     dfUSDollarExchangeRates.reset_index(inplace=True)
@@ -100,7 +90,6 @@ def CreateDataFrameFromJSON(json):
     dfUSDollarExchangeRates = pd.concat([USDollar, dfUSDollarExchangeRates], ignore_index=True)
     today_ts = pd.Timestamp.today()
     dfUSDollarExchangeRates['LOADINGDATA'] = today_ts
-    
     return dfUSDollarExchangeRates
         
 def PrintingDataFrameOfExchangeRate(): 
@@ -114,14 +103,16 @@ def DataFrameOfExchangeRate():
     DictionaryDataCurrencyValues = DictionaryOfExchangeRate()
     JSONCurrencyValues = ConvertingDictToJSON(DictionaryDataCurrencyValues)
     dfUSDollarExchangeRates = CreateDataFrameFromJSON(JSONCurrencyValues)
-    return CreateDataFrameFromJSON(JSONCurrencyValues)  
+    return CreateDataFrameFromJSON(JSONCurrencyValues) 
 
+#Saving fetched data as csv files
 def SaveToCSVFile(dataframe):
     timestr = time.strftime("%d-%m-%Y")
     CSV = dataframe.to_csv(timestr + '-' + 'USDollarExchangeRates.csv')
     return CSV
-    
-    
+
+#Putting all functions in one
+#Final function that fetches data from webiste and save it as JSON and csv files       
 def finalExecutionOfExchangeRate():
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
     MakingRequest(URL)
@@ -131,54 +122,9 @@ def finalExecutionOfExchangeRate():
     dfUSDollarExchangeRates = DataFrameOfExchangeRate()
     PrintingDataFrameOfExchangeRate()
     SaveToCSVFile(dfUSDollarExchangeRates)
-
-def UploadDataMinioExchangeCurrency():
-    timestr = time.strftime("%d-%m-%Y")
-    URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
-    MakingRequest(URL)
-    DictionaryDataCurrencyValues = DictionaryOfExchangeRate()
-    JSONCurrencyValues = ConvertingDictToJSON(DictionaryDataCurrencyValues)
-    dfUSDollarExchangeRates = CreateDataFrameFromJSON(JSONCurrencyValues)
-    df =  dfUSDollarExchangeRates
-    try: 
-        client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='VshGY8lcAXJbUs0c1FOD',  
-                secret_key='9aGFZCb6P9ONsasQigboPzUYgF4Us3RP8J4Iu0uf', 
-                    secure=False)  
-        if not client.bucket_exists("usdollarexchangerates"):
-            client.make_bucket("usdollarexchangerates")
-            print("\033[92m Bucket usdollarexchangerates created successfully.")
-              
-    except Exception as err:
-        print(f"Error occurred: {err}")
-        
-    ListOfAllAccessibleBuckets = print(f"\033[94m Total buckets:  {len(client.list_buckets())}"),  
-    csv_bytes = df.to_csv().encode('utf-8')
-    csv_buffer = io.BytesIO(csv_bytes)
-    try: 
-        UploadCSVFileToObject = client.put_object("usdollarexchangerates", 
-                        timestr + '-' + 'RawDataUSDollarExchangeRates.csv',  
-                        data=csv_buffer, 
-                        length=len(csv_bytes), 
-                        content_type='application/csv')
-        
-        objects = client.list_objects("conversionrateexchange")
-        for obj in objects:
-            ListObjectInformationOfBucket = print(f"\033[95m List of Bucket Object {obj}")
-        return  UploadCSVFileToObject , ListObjectInformationOfBucket, ListOfAllAccessibleBuckets
-    except Exception as err:
-        print(f"Error occurred: {err}")
-
-
-    
+    print("\033[92m Data ExchangeCurrency was successfully saved as CSV and JSON files")
+ 
+#Running this function if this file is run as a script from the command line. 
+#However, if the file is imported from another file, this will not be executed.    
 if __name__ == "__main__":
     finalExecutionOfExchangeRate()
-    print("\033[92m Data ExchangeCurrency was successfully saved as a CSV and JSON files")
-    UploadDataMinioExchangeCurrency()
-    print("\033[92m Data ExchangeCurrency was successfully loaded to an object in a bucket")
-
-    
-    
-
-    
-    

@@ -5,15 +5,14 @@ from airflow.operators.python_operator import PythonOperator
 from symbolData import finalExecutionSymbol
 from exchangeRate import finalExecutionExchangeRate
 
-
+#Defining a dictionary of default parameters that will be used when creating tasks
 default_args = {
         'owner' : 'Lukasz',
         'retries': 5,
         'retry_delay': timedelta(minutes=5)
+        }
 
-}
-
-
+#Declaring DAG (directed acyclic graph) with a collection of operators, tasks with directional dependencies
 with DAG(
     default_args=default_args,
     dag_id='Extracting_data',
@@ -30,7 +29,4 @@ with DAG(
     python_callable=finalExecutionSymbol
     )
     
-    
-     
     ExchangeRate >> Symbol
-

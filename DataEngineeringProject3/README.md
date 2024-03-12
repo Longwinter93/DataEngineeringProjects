@@ -23,6 +23,7 @@
 
 ## **FINAL RESULT OF PROJECT**
 <br /> Thanks to bash scripts, the whole process is automatically done.
+<br /> Currency and symbol data is successfully saved as JSON files in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject3/AirflowFolders) folder 
 <br /> As we can see, data is successfully loaded to tables in a Postgresql database
 1. ![Currency](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject3/currency.jpg)
 2. ![Symbol](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject3/symbol.jpg)
