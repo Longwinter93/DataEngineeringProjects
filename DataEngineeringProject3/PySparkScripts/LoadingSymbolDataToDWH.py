@@ -8,8 +8,8 @@ from pyspark.sql.functions import from_json,col,current_timestamp
 from pyspark import SparkContext
 import logging
 
-
-
+#Defining SparkSession - the entry point to programming Spark with the Dataset and DataFrame API
+#Adding required packages to read data from Apache Kafka and postgresql drivers to save a table there.
 def SparkSessionStreamingData():
     try:
         spark = SparkSession \
@@ -26,7 +26,7 @@ def SparkSessionStreamingData():
         print("\033[91m Spark Session wasn't successfully created")
     return spark 
 
-
+#Creating a Kafka Source for Batch Queries
 def ReadingDataFromKafkaSymbol():
     topic_name = 'Symbol'
     localhost = 'host.docker.internal:29092'
@@ -44,6 +44,7 @@ def ReadingDataFromKafkaSymbol():
         print("\033[91m a Kafka Source for Streaming queries wasn't successfully created")
     return df  
 
+#Creating schema to read the JSON data and put it to DataFrame.
 def CreateDataFrameSymbol():
     df = ReadingDataFromKafkaSymbol()
     schema = StructType([
@@ -69,6 +70,7 @@ def CreateDataFrameSymbol():
     print(df.show(truncate=False))
     return df 
 
+#Saving DataFrame to a postgresql table
 def LoadingDataSymbolToDWH():
     df = CreateDataFrameSymbol()
     dfSymbol = df.select("EUR", "SymbolEuro",
@@ -83,11 +85,13 @@ def LoadingDataSymbolToDWH():
     .option("driver", "org.postgresql.Driver").option("dbtable", "Symbol") \
     .option("user", "airflow").option("password", "airflow").mode("append").save()
     return dfSymbol
-    
+
+#Putting all functions to one function to easily execute it    
 def finalexecutionDWH():
     LoadingDataSymbolToDWH()
     logging.info("LoadingDataToDWH")
     print("Loading Symbol Data To DWH was successfully done")
 
+# a finalexecutionDWH() function will be executed only if the script is the main program, but when it is imported as a module
 if __name__ == "__main__":
     finalexecutionDWH()

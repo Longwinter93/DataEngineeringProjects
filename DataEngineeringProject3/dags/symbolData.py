@@ -9,7 +9,8 @@ import logging
 from kafka import KafkaProducer 
 from kafka.errors import KafkaError
 
-
+#Using decorator dataclass to modify the behaviour of class
+#Defining class CurrencySymbol with class attributes to hold data types
 @dataclass
 class CurrencySymbol:
     EUR: str
@@ -29,9 +30,7 @@ class CurrencySymbol:
     CNY: str
     SymbolCNY: str
     
-    
-
-
+#Making a request to web page to obtain a response called request and convert it to JSON  
 def make_request_symbol(url: str="https://api.vatcomply.com/currencies") -> dict:
     request = requests.get(url)
     CurrencySymbol = request.json()
@@ -42,8 +41,7 @@ def make_request_symbol(url: str="https://api.vatcomply.com/currencies") -> dict
     
     return CurrencySymbol
 
-
-        
+#Using a CurrencySymbol class to store data in a JSON format. Then, a JSON key-value pairs were selected   
 def create_final_json_symbol(json_data) -> dict:
     symbol = CurrencySymbol(
         EUR=json_data['EUR']['name'],
@@ -65,6 +63,7 @@ def create_final_json_symbol(json_data) -> dict:
     )
     return symbol 
 
+#Fetching data in a JSON file
 def save_to_file_symbol(symbol: CurrencySymbol):
     try:
         with open('symbol.json', 'w') as file:
@@ -72,20 +71,20 @@ def save_to_file_symbol(symbol: CurrencySymbol):
     except FileNotFoundError as ex:
         print(ex)
 
-
-
+#Creating one function that holds all functions to obtain desired results        
 def CurrencySymbolJSON():
     data = make_request_symbol()
     symbol = create_final_json_symbol(data)
     save_to_file_symbol(symbol)
     return symbol
 
+#Making a connection between Producer and Bootstrap initial cluster metadata (broker)
 def CreateKafkaProducer():
     localhost = 'host.docker.internal:29092' 
     return KafkaProducer(bootstrap_servers=[localhost])
 
-
-        
+#Defining a topic where the message will be published
+#Message value that is converted to a JSON formatted string that is encoded to the UTF-8 encoded version of the string 
 def PublishingMessageSymbolToTopic():
     producer = CreateKafkaProducer()
     topic_name = 'Symbol' # topic where the message will be published
@@ -97,14 +96,14 @@ def PublishingMessageSymbolToTopic():
             break  
         producer.send(topic_name, json.dumps(StreamingDataDictSymbol).encode('utf-8'))
         time.sleep(10)
-
+        
+#Putting all functions in one function
 def finalExecutionSymbol():
     CurrencySymbolJSON()
     PublishingMessageSymbolToTopic()
     logging.info("Extracting symbols was successfully done")
     print("Publishing Symbol Data To Topics")
 
-
-
+# a finalExecutionSymbol() function will be executed only if the script is the main program, but when it is imported as a module
 if __name__ == "__main__":
     finalExecutionSymbol()
