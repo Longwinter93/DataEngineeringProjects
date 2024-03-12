@@ -3,6 +3,7 @@ import io
 import time
 from minio import Minio 
 
+#Creating a usdollarexchangerates bucket in Minio
 #Uploading Exchange Currency .csv files to a Minio bucket
 def UploadDataMinioExchangeCurrency():
     timestr = time.strftime("%d-%m-%Y")

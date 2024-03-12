@@ -4,8 +4,8 @@ import json
 import time
 import pandas as pd
 
-
-#Selecting Exchange Currency data from webiste
+#Making a request to web page to obtain a response called r  
+#Using a Beautiful Soup library to scrape information from web pages to select Exchange Rate Currency data
 def MakingRequest(url: str) -> str:
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
     r = requests.get(URL)
@@ -74,12 +74,14 @@ def SaveToJSONfile(data: dict) -> json:
     except FileNotFoundError as ex:
         print(ex)
         
+#Converting Dictionary to JSON      
 def ConvertingDictToJSON(datadict: dict) -> json:
     JSONUSDollarExchangeRatesTable = json.dumps(datadict)
     JSONUSDollarExchangeRatesTable
     dataUSDollarExchangeRatesTable = json.loads(JSONUSDollarExchangeRatesTable) 
     return dataUSDollarExchangeRatesTable
 
+#Creating DataFrame from JSON
 def CreateDataFrameFromJSON(json):
     dfUSDollarExchangeRates = pd.DataFrame.from_dict(json, orient="index")
     dfUSDollarExchangeRates.reset_index(inplace=True)
@@ -108,6 +110,8 @@ def SaveToCSVFile(dataframe):
     timestr = time.strftime("%d-%m-%Y")
     CSV = dataframe.to_csv(timestr + '-' + 'USDollarExchangeRates.csv')
     return CSV
+
+#Putting all functions in one
 #Final function that fetches data from webiste and save it as JSON and csv files       
 def finalExecutionOfExchangeRate():
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'

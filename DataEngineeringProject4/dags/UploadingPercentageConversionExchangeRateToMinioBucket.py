@@ -4,7 +4,8 @@ import time
 import io  
 import pandas as pd
 
-#Uploading .csv files to a Minio bucket
+#Creating a conversionrateexchange bucket in Minio
+#Uploading Exchange Currency .csv files to a Minio bucket
 def UploadDataMinioExchangeRatePercentageChange():
     timestr = time.strftime("%d-%m-%Y")
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
@@ -40,8 +41,7 @@ def UploadDataMinioExchangeRatePercentageChange():
         return  UploadCSVFileToObject , ListObjectInformationOfBucket, ListOfAllAccessibleBuckets
     except Exception as err:
         print(f"Error occurred: {err}")
-        
-        
+             
 #Running this function if this file is run as a script from the command line. 
 #However, if the file is imported from another file, this will not be executed.               
 if __name__ == "__main__":

@@ -30,4 +30,3 @@ with DAG(
     )
     
     ExchangeRate >> Symbol
-

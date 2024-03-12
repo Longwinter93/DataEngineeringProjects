@@ -1,5 +1,6 @@
 from cassandra.cluster import Cluster
 
+#Connection to Apache Cassandra and creating KEYSPACE
 def ConnectionToCassandra():
     try:
         cluster = Cluster(['cassandra'],port=9042)
@@ -8,14 +9,14 @@ def ConnectionToCassandra():
     except Exception as e:
         print(e)
     
-
 def Execution():
     session = ConnectionToCassandra()
     try:
         return session.execute("""CREATE KEYSPACE IF NOT EXISTS exchangecurrency WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '1' };""")
     except Exception as e:
         print(e)
-
+        
+#Creating a percentagechangelast24hours table where data will populate
 def CreateTable():
     session = ConnectionToCassandra()
     session.set_keyspace('exchangecurrency')
@@ -30,7 +31,8 @@ def CreateTable():
         return session.execute(query)
     except Exception as e:
         print(e)
-        
+
+#Putting all functions in one function        
 def FinalCreateTablePercentacheChangeCassandra():
     ConnectionToCassandra()
     Execution()
@@ -41,9 +43,3 @@ def FinalCreateTablePercentacheChangeCassandra():
 #However, if the file is imported from another file, this will not be executed.  
 if __name__ == "__main__":
     FinalCreateTablePercentacheChangeCassandra()
-   
-
-
-    
-
-   

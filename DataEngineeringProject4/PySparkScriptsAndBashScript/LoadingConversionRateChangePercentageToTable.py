@@ -6,8 +6,8 @@ from pyspark.sql.types import StructType,StructField,FloatType,IntegerType,Strin
 from pyspark.sql.functions import from_json,col,current_timestamp
 from cassandra.cluster import Cluster
 
-
-
+#Defining SparkSession - the entry point to programming Spark with the Dataset and DataFrame API
+#Adding required packages to read data from Apache Kafka and Apache Cassandra drivers to save a table there.
 def SparkSessionStreamingData():
     try:
         spark = SparkSession \
@@ -27,6 +27,7 @@ def SparkSessionStreamingData():
         print("\033[91m Spark Session wasn't successfully created")
     return spark 
 
+#Creating a Kafka Source for Batch Queries
 def ReadingDataFromKafka():
     topic_name = 'percentageexchangerate'
     localhost = 'host.docker.internal:29092'
@@ -43,7 +44,7 @@ def ReadingDataFromKafka():
         print("\033[91m a Kafka Source for Streaming queries wasn't successfully created")
     return df  
 
-
+#Creating schema to read the JSON data and put it to DataFrame.
 def CreateDataFrameCurrency():
     df =ReadingDataFromKafka()
     schema = StructType([
@@ -60,7 +61,7 @@ def CreateDataFrameCurrency():
     df = df.withColumn("id", monotonically_increasing_id())
     return df
 
-
+#Transformation of DataFrame to load DataFrame to a table in postgresql
 def TransposeColumnsToRows():
     df = CreateDataFrameCurrency()
     columns = df.columns[:-1]
@@ -70,13 +71,12 @@ def TransposeColumnsToRows():
         variableColumnName="conversionrate", 
         valueColumnName="percentagechange"
     ).filter(df['id'] == 0)
-    
     df3 = df2.withColumn("id", monotonically_increasing_id()) \
     .withColumn("loadingtimedata", current_timestamp()) 
     
     return df3
 
-
+#Saving DataFrame to a postgresql table
 def LoadingDataToDWH():
     df3 = TransposeColumnsToRows()
     LoadingDataFrameToTable = df3.write\
@@ -85,6 +85,7 @@ def LoadingDataToDWH():
         .options(table="percentagechangelast24hours", keyspace="exchangecurrency").save()
     return LoadingDataFrameToTable
 
+#Recording that data was populated into a table in Apache Cassandra
 def LoadingDataToRecordsTable():
     try:
         cluster = Cluster(['cassandra'],port=9042)
@@ -95,13 +96,11 @@ def LoadingDataToRecordsTable():
         VALUES (5, 'A percentagechangelast24hours table was populated', toTimeStamp(now()));"""
         return session.execute(query)
     except Exception as e:
-        print(e)       
-    
+        print(e)     
+          
+# LoadingDataToDWH() & LoadingDataToRecordsTable() functions will be executed only if the script is the main program
 if __name__ == "__main__":
     LoadingDataToDWH()
     print("Loading Conversion Rate Change Percentage Data To DWH was successfully done")
     LoadingDataToRecordsTable()
     print("Record Table was successfully populated")
-
-    
-    

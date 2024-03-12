@@ -18,10 +18,9 @@ default_args = {
         'owner' : 'Lukasz',
         'retries': 5,
         'retry_delay': timedelta(minutes=5)
+        }
 
-}
-
-#Instantiage a DAG
+#Declaring DAG (directed acyclic graph) with a collection of operators, tasks with directional dependencies
 with DAG(
     default_args=default_args,
     dag_id='PullingCurrencyExchangeRateDataCreatingApacheCassandraTablesUploadingDataInBucket',
@@ -66,9 +65,5 @@ with DAG(
    python_callable=FinalCreateTableRecordTableAndRegisteringRecords
    )
     
-    
    [UploadingDataExchangeCurrencyInBucket,  CurrencyExchangeRate] >> CreateTableDollarExchangeRates >> PublishingRecordsToTheKafkaClusterExchangeCurrency  >> RecordingDAGs
    [UploadingDataExchangeRatePercentageChangeInBucket,  ConversionRateChangePercentage ] >>  CreateTablePercentacheChangeCassandra  >> PublishingRecordsToTheKafkaClusterConversionRateExchange >> RecordingDAGs
-    
-  
-    

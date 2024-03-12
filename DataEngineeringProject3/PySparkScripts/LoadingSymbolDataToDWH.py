@@ -92,6 +92,6 @@ def finalexecutionDWH():
     logging.info("LoadingDataToDWH")
     print("Loading Symbol Data To DWH was successfully done")
 
-# a finalexecutionDWH() function will be executed only if the script is the main program, but when it is imported as a module
+# a finalexecutionDWH() function will be executed only if the script is the main program
 if __name__ == "__main__":
     finalexecutionDWH()

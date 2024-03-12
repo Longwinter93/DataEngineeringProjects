@@ -1,5 +1,6 @@
 from cassandra.cluster import Cluster
-#Connection to Apache Cassandra
+
+#Connection to Apache Cassandra and creating KEYSPACE
 def ConnectionToCassandra():
     try:
         cluster = Cluster(['cassandra'],port=9042)
@@ -8,14 +9,14 @@ def ConnectionToCassandra():
     except Exception as e:
         print(e)
     
-
 def Execution():
     session = ConnectionToCassandra()
     try:
         return session.execute("""CREATE KEYSPACE IF NOT EXISTS exchangecurrency WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '1' };""")
     except Exception as e:
         print(e)
-#Creating a record table that holds all information related to the process
+        
+#Creating a record table in Apache Cassandra that holds all information related to the process
 def CreateRecordTable():
     session = ConnectionToCassandra()
     session.set_keyspace('exchangecurrency')
@@ -30,7 +31,7 @@ def CreateRecordTable():
     except Exception as e:
         print(e)
         
-#Inserting data that what was done       
+#Inserting data that what was done in each process      
 def RegisteringFetchingData():
     session = ConnectionToCassandra()
     session.set_keyspace('exchangecurrency')
@@ -41,8 +42,7 @@ def RegisteringFetchingData():
         session.execute(query)
     except Exception as e:
         print(e)  
-        
-              
+                   
 def RegisteringMinioBucketWasCreated():
     session = ConnectionToCassandra()
     session.set_keyspace('exchangecurrency')
@@ -53,8 +53,7 @@ def RegisteringMinioBucketWasCreated():
         session.execute(query)
     except Exception as e:
         print(e)
-        
-        
+            
 def RegisteringTableWasCreated():
     session = ConnectionToCassandra()
     session.set_keyspace('exchangecurrency')
@@ -77,7 +76,7 @@ def RegisteringKafkaPublishesRecordsToKafkaCluster():
     except Exception as e:
         print(e)
 
-      
+#Putting all functions into one function to easily execute it    
 def FinalCreateTableRecordTableAndRegisteringRecords():
     ConnectionToCassandra()
     Execution()
@@ -93,9 +92,3 @@ def FinalCreateTableRecordTableAndRegisteringRecords():
 #However, if the file is imported from another file, this will not be executed.      
 if __name__ == "__main__":
     FinalCreateTableRecordTableAndRegisteringRecords()
-   
-
-
-    
-
-   

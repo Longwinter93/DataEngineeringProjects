@@ -4,7 +4,8 @@ import json
 import time
 import pandas as pd
 
-#Selecting Percentage of Conversion Exchange Rate from website
+#Making a request to web page to obtain a response called r  
+#Using a Beautiful Soup library to scrape information from web pages to select Percentage of Conversion Exchange Rate data
 def MakingRequest(url: str) -> str:
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
     r = requests.get(URL)
@@ -56,13 +57,15 @@ def SaveToJSONfile(data: dict) -> json:
                 json.dump(data, file)
     except FileNotFoundError as ex:
         print(ex)
-       
+        
+#Converting Dictionary to JSON         
 def ConvertingDictToJSON(datadict: dict) -> json:
     JSONUSDollarExchangeRatesTable = json.dumps(datadict)
     JSONUSDollarExchangeRatesTable
     dataUSDollarExchangeRatesTable = json.loads(JSONUSDollarExchangeRatesTable) 
-    return dataUSDollarExchangeRatesTable    
-
+    return dataUSDollarExchangeRatesTable   
+ 
+#Creating DataFrame from JSON
 def CreateDataFrameFromJSONPercentageChange(json):
     dfPercentChangeIntheLast24Hours = pd.DataFrame.from_dict(json, orient="index")
     dfPercentChangeIntheLast24Hours.reset_index(inplace=True)
@@ -78,7 +81,8 @@ def SaveToCSVFile(dataframe):
     CSV = dataframe.to_csv(timestr + '-' + 'PercentChangeIntheLast24Hours.csv')
     return CSV   
      
-#Final function that fetches data from webiste and save it as JSON and csv files       
+#Putting all functions in one
+#Final function that fetches data from webiste and save it as JSON and csv files     
 def finalExecutionOfRateChangePercentage():
     URL = 'https://www.x-rates.com/table/?from=USD&amount=1'
     MakingRequest(URL)

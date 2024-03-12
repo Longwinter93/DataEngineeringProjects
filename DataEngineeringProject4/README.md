@@ -2,6 +2,7 @@ Adding a new Data Engineering Project ;)
 The project is in the process of doing!
 
 -- Writing descriptions what was done in each python scripts!!
+-- Making description in README then make a graph of this architecture
 --Trigger DAGs in Apache Airflow
 -- how to do it : 
 -- spark container ->
