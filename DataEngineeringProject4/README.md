@@ -11,7 +11,7 @@ The main goal of this project was to extract **US Dollar Exchange Rates Table** 
 <br /> To run create and start these containers, it is necessery to execute a `docker compose up` command on the terminal.
 <br />Data is extracted from a website. <br />Next, data is saved as JSON and CSV files that are located in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders) and placed in buckets in [MinIO Object Storage](https://min.io/) to organize objects. Before this step, it is essential to create access key in MinIO and implement it on Python scripts.<br />Tables, where data will populate, are created in an [Apache Cassandra database](https://cassandra.apache.org/_/index.html).
 <br />Then, data is written to [Kafka](https://kafka.apache.org/) Topic. <br />Finally, all steps are recorded and this information is inserted in tables in an Apache Cassandra database. <br />This workflow is represented as a **DAG** (a Directed Acyclic Graph) as well as is triggered by [Apache Airflow](https://airflow.apache.org/). <br />These steps are written by Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/dags). 
-<img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/ApacheAirflowDAG.jpg" width="600" height="400">
+<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/ApacheAirflowDAG.jpg" width="1000" height="400">
 <br /> To run this DAG, it is necessary to open Airflow Webserver that is the User Interface of Airflow and run this DAG.
 <br />[Spark](https://spark.apache.org/) reads data from Apache Kafka and saves it as a DataFrame that is a distributed collection of data grouped into named columns. These PySpark and Bash scripts are located in a [PySparkScriptsAndBashScript folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/PySparkScriptsAndBashScript). 
 <br />To run this step, it is mandatory to run a bash script in a Spark container by using these bash commands in terminal:
@@ -26,11 +26,11 @@ The main goal of this project was to extract **US Dollar Exchange Rates Table** 
 ## FINAL RESULT OF PROJECT
 - US Dollar Exchange Rates Tables and Percent Change in the Last 24 Hours are successfully saved as JSON and csv files in a [AirflowFolders folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders).
 - CSV files are stored in MinIO Object Storage:
-<img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/MinIOObjectStorage.jpg" width="600" height="400">.
+<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/MinIOObjectStorage.jpg" width="600" height="400">.
 - DataFrames are also successfully loaded to tables in Apache Cassandra:
-<img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/ExchangeCurrencyTables.jpg" width="600" height="400">
+<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/ExchangeCurrencyTables.jpg" width="600" height="400">
 - All steps are recorded and inserted in a table in Apache Cassandra:
-<img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/RecordTables.jpg" width="600" height="400">
+<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/RecordTables.jpg" width="600" height="400">
 ## RUNNING THIS PROJECT MANUALLY
 <br />Instead of using a Bash script, it is feasible to run these commands in a bash shell in the Spark container:
 - ```pip install --upgrade pip```
