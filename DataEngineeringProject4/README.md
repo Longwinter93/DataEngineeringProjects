@@ -1,3 +1,19 @@
+# MAIN GOAL OF PROJECT
+The main goal of this project was to extract **US Dollar Exchange Rates Table** & **Percentage Change in the Last 24 Hours**. Data is saved as CSV and JSON files and load into Object Storage. Next, data is emitted in a continuous incremental manner with the goal of low-latency processing in every fifth minute.
+Finally, data is transformed and loaded then into tables. In addition, each step is recorded in databases by inserting records to tables.
+
+## SHORT DESCRIPTION OF PROJECT
+<br /> To start with, it is necessary to copy this repository in your local driver by typing:
+<br /> ```git clone https://github.com/Longwinter93/DataEngineeringProjects```. 
+<br /> A DataEngineeringProject4 folder belongs to this project. It is necessery to open this folder in your explorer to see _docker-compose.yaml_.
+<br /> [A Docker Desktop](https://www.docker.com/products/docker-desktop/) is used to build and run container applications.
+<br /> To run create and start these containers, it is necessery to execute a `docker compose up` command on the terminal.
+<br />Data is extracted from a website. Next, data is saved as JSON and CSV files and placed in buckets in MinIO Object Storage to organize objects. Tables, where data will populate, are created in an Apache Cassandra database.
+Then, data is written to Kafka Topic. Finally, all steps are recorded and this information is inserted in tables in an Apache Cassandra database. This workflow is represented as a DAG (a Directed Acyclic Graph) and tasks in this DAG is triggered by Apache Airflow. These steps are written by Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/dags). 
+picture of it
+
+
+
 Adding a new Data Engineering Project ;) 
 The project is in the process of doing!
 
