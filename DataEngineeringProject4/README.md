@@ -15,24 +15,24 @@ _picture of it_
 _picture of it_
 <br />[Spark](https://spark.apache.org/) reads data from Apache Kafka and saves it as a DataFrame that is a distributed collection of data grouped into named columns. These PySpark and Bash scripts are located in a [PySparkScriptsAndBashScript folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/PySparkScriptsAndBashScript). 
 <br />To run this step, it is mandatory to run a bash script in a Spark container by using these bash commands in terminal:
-<br />+ ```docker ps``` _to show all running containers and find a spark container_
-<br />+ ```docker exec -it nameofsparkcontainer /bin/bash``` _to get a bash shell in the container_.
-<br />+ ```bash BashScriptForRunningPySparkScripts.sh ``` _to run this script to update pip, install packages with respect to [configuration file](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/requirements.txt), then run PySparkScripts_.
+<br />- ```docker ps``` _to show all running containers and find a spark container_
+<br />- ```docker exec -it nameofsparkcontainer /bin/bash``` _to get a bash shell in the container_.
+<br />- ```bash BashScriptForRunningPySparkScripts.sh ``` _to run this script to update pip, install packages with respect to [configuration file](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/requirements.txt), then run PySparkScripts_.
 <br /> After a few transformations, a DataFrame is loaded to tables in Apache Cassandra.
 <br /> This step is also recoreded in a table in Apache Cassandra.
 
 ## FINAL RESULT OF PROJECT
-<br />+US Dollar Exchange Rates Tables and Percent Change in the Last 24 Hours are successfully saved as JSON and csv files in a [AirflowFolders folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders).
-<br />+CSV files are stored in MinIO Object Storage:.
-<br />+DataFrames are also successfully loaded to tables in Apache Cassandra:
-<br />+All steps are recorded and inserted in a table in Apache Cassandra:
+<br />- US Dollar Exchange Rates Tables and Percent Change in the Last 24 Hours are successfully saved as JSON and csv files in a [AirflowFolders folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders).
+<br />- CSV files are stored in MinIO Object Storage:.
+<br />- DataFrames are also successfully loaded to tables in Apache Cassandra:
+<br />- All steps are recorded and inserted in a table in Apache Cassandra:
 
-### RUNNING THIS PROJECT MANUALLY
+## RUNNING THIS PROJECT MANUALLY
 <br />Instead of using a Bash script, it is feasible to run these commands in a bash shell in the Spark container:
-<br />*```pip install --upgrade pip```
-<br />*```pip install -r requirements.txt```
-<br />*```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingConversionRateChangePercentageToTable.py```
-<br />*```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingExchangeCurrencyDataToTable.py```
+<br />- ```pip install --upgrade pip```
+<br />- ```pip install -r requirements.txt```
+<br />- ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingConversionRateChangePercentageToTable.py```
+<br />- ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingExchangeCurrencyDataToTable.py```
 
 
 Adding a new Data Engineering Project ;) 
