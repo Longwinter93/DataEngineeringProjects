@@ -15,8 +15,8 @@ def UploadDataMinioExchangeRatePercentageChange():
     df = CreateDataFrameFromJSONPercentageChange(JSONConversionRateChangePercentage)
     try: 
         client = Minio(endpoint='host.docker.internal:9000', 
-                access_key='PhMH2hUV5UZBbxpCXM6B',  
-                secret_key='el3GZ80XG6pjjRhCKBLW5rnZFdyVJteQzlHNMGbR', 
+                access_key='jgvFHXbh8XJZUGZ13BL3',  
+                secret_key='Q21MSxEIlnC6PZCkqYyuPX8BM7k2Mksd6h6GyuKs', 
                     secure=False)  
         if not client.bucket_exists("conversionrateexchange"):
             client.make_bucket("conversionrateexchange")
