@@ -12,6 +12,14 @@ Finally, data is transformed and loaded then into tables. In addition, each step
 Then, data is written to Kafka Topic. Finally, all steps are recorded and this information is inserted in tables in an Apache Cassandra database. This workflow is represented as a DAG (a Directed Acyclic Graph) as well as is triggered by Apache Airflow. These steps are written by Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/dags). 
 _picture of it_
 <br /> To run this DAG, it is necessary to open Airflow Webserver that is the User Interface of Airflow and run this DAG.
+_picture of it_
+<br />Spark reads data from Apache Kafka and saves it as a DataFrame that is a distributed collection of data grouped into named columns. These PySpark scripts are located in a [PySparkScriptsAndBashScript folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/PySparkScriptsAndBashScript). 
+<br />To run this step, it is mandatory to run a bash script in a Spark container by using these bash commands in terminal:
+1. ```docker ps``` __to show all running containers and find a spark container__
+2. ```docker exec -it nameofsparkcontainer /bin/bash``` __to get a bash shell in the container__.
+3. ```bash BashScriptForRunningPySparkScripts.sh ``` __to run this script to update pip, install packages with respect to configuration file, then run PySparkScripts __.
+<br /> After a few transformations, a DataFrame is loaded to tables in Apache Cassandra.
+<br /> This step is also recoreded in a table in Apache Cassandra.
 
 
 Adding a new Data Engineering Project ;) 
