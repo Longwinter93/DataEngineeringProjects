@@ -8,12 +8,12 @@ Finally, data is transformed and loaded then into tables. In addition, each step
 <br /> A DataEngineeringProject4 folder belongs to this project. It is necessery to open this folder in your explorer to see _docker-compose.yaml_.
 <br /> [A Docker Desktop](https://www.docker.com/products/docker-desktop/) is used to build and run container applications.
 <br /> To run create and start these containers, it is necessery to execute a `docker compose up` command on the terminal.
-<br />Data is extracted from a website. Next, data is saved as JSON and CSV files that are located in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders)  and placed in buckets in MinIO Object Storage to organize objects. Before this step, it is essential to create access key in MinIO and implement it on Python scripts. Tables, where data will populate, are created in an Apache Cassandra database.
-Then, data is written to Kafka Topic. Finally, all steps are recorded and this information is inserted in tables in an Apache Cassandra database. This workflow is represented as a DAG (a Directed Acyclic Graph) as well as is triggered by Apache Airflow. These steps are written by Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/dags). 
+<br />Data is extracted from a website. Next, data is saved as JSON and CSV files that are located in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders) and placed in buckets in [MinIO Object Storage](https://min.io/) to organize objects. Before this step, it is essential to create access key in MinIO and implement it on Python scripts. Tables, where data will populate, are created in an  [Apache Cassandra database](https://cassandra.apache.org/_/index.html).
+Then, data is written to [Kafka](https://kafka.apache.org/) Topic. Finally, all steps are recorded and this information is inserted in tables in an Apache Cassandra database. This workflow is represented as a DAG (a Directed Acyclic Graph) as well as is triggered by [Apache Airflow](https://airflow.apache.org/). These steps are written by Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/dags). 
 _picture of it_
 <br /> To run this DAG, it is necessary to open Airflow Webserver that is the User Interface of Airflow and run this DAG.
 _picture of it_
-<br />Spark reads data from Apache Kafka and saves it as a DataFrame that is a distributed collection of data grouped into named columns. These PySpark and Bash scripts are located in a [PySparkScriptsAndBashScript folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/PySparkScriptsAndBashScript). 
+<br />[Spark](https://spark.apache.org/) reads data from Apache Kafka and saves it as a DataFrame that is a distributed collection of data grouped into named columns. These PySpark and Bash scripts are located in a [PySparkScriptsAndBashScript folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/PySparkScriptsAndBashScript). 
 <br />To run this step, it is mandatory to run a bash script in a Spark container by using these bash commands in terminal:
 + ```docker ps``` _to show all running containers and find a spark container_
 + ```docker exec -it nameofsparkcontainer /bin/bash``` _to get a bash shell in the container_.
@@ -29,10 +29,10 @@ All steps are recorded and inserted in a table in Apache Cassandra:
 
 ### RUNNING THIS PROJECT MANUALLY
 Instead of using a Bash script, it is feasible to run these commands in a bash shell in the Spark container:
-```pip install --upgrade pip```
-```pip install -r requirements.txt```
-```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingConversionRateChangePercentageToTable.py```
-```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingExchangeCurrencyDataToTable.py```
+*```pip install --upgrade pip```
+*```pip install -r requirements.txt```
+*```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingConversionRateChangePercentageToTable.py```
+*```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingExchangeCurrencyDataToTable.py```
 
 
 Adding a new Data Engineering Project ;) 
@@ -41,13 +41,5 @@ The project is in the process of doing!
 -- Writing descriptions what was done in each python scripts!!
 -- Making description in README then make a graph of this architecture
 --Trigger DAGs in Apache Airflow
--- how to do it : 
--- spark container ->
-docker exec -it nameofcontainer /bin/bash
--- running bash script 
-bash BashScriptForRunningPySparkScripts.sh 
 
-pip install --upgrade pip
-pip install -r requirements.txt
-spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingConversionRateChangePercentageToTable.py
-spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingExchangeCurrencyDataToTable.py
+
