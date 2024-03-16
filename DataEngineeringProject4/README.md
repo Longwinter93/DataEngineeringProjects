@@ -8,10 +8,10 @@ Finally, data is transformed and loaded then into tables. In addition, each step
 <br /> A DataEngineeringProject4 folder belongs to this project. It is necessery to open this folder in your explorer to see _docker-compose.yaml_.
 <br /> [A Docker Desktop](https://www.docker.com/products/docker-desktop/) is used to build and run container applications.
 <br /> To run create and start these containers, it is necessery to execute a `docker compose up` command on the terminal.
-<br />Data is extracted from a website. Next, data is saved as JSON and CSV files and placed in buckets in MinIO Object Storage to organize objects. Tables, where data will populate, are created in an Apache Cassandra database.
-Then, data is written to Kafka Topic. Finally, all steps are recorded and this information is inserted in tables in an Apache Cassandra database. This workflow is represented as a DAG (a Directed Acyclic Graph) and tasks in this DAG is triggered by Apache Airflow. These steps are written by Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/dags). 
-picture of it
-
+<br />Data is extracted from a website. Next, data is saved as JSON and CSV files that are located in a [AirflowFolders](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders)  and placed in buckets in MinIO Object Storage to organize objects. Tables, where data will populate, are created in an Apache Cassandra database.
+Then, data is written to Kafka Topic. Finally, all steps are recorded and this information is inserted in tables in an Apache Cassandra database. This workflow is represented as a DAG (a Directed Acyclic Graph) as well as is triggered by Apache Airflow. These steps are written by Python scripts that are located in a [dags folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/dags). 
+_picture of it_
+<br /> To run this DAG, it is necessary to open Airflow Webserver that is the User Interface of Airflow and run this DAG.
 
 
 Adding a new Data Engineering Project ;) 
