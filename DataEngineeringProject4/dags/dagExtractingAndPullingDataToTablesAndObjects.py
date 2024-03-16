@@ -13,7 +13,7 @@ from CassandraTablesDollarExchangeRates import  FinalCreateTableDollarExchangeRa
 from CassandraRecordsTable import FinalCreateTableRecordTableAndRegisteringRecords
 
 #Creating a basic pipeline:
-#1. A dictionary of default parameters were defined to use to create tasks
+#A dictionary of default parameters were defined to use to create tasks
 default_args = {
         'owner' : 'Lukasz',
         'retries': 5,
@@ -25,7 +25,7 @@ with DAG(
     default_args=default_args,
     dag_id='PullingCurrencyExchangeRateDataCreatingApacheCassandraTablesUploadingDataInBucket',
     description='Extracting Currency Exchange Rates and Conversion Rate Change Percentage. Creating Apache Cassandra Tables. Uploading Data in a Bucket ',
-    start_date=datetime(2024,3, 9),
+    start_date=datetime(2024,3, 16),
     schedule_interval='30 4 * * *'
 ) as dag:
    CurrencyExchangeRate= PythonOperator(
