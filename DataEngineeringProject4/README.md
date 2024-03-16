@@ -35,7 +35,7 @@ _picture of it_
 - ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingConversionRateChangePercentageToTable.py```
 - ```spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 LoadingExchangeCurrencyDataToTable.py```
 
-###### To create this project, these sites were used [Apache Kafka](https://kafka.apache.org/),[Apache Airflow](https://airflow.apache.org/), [Kafka-Python](https://kafka-python.readthedocs.io/en/master/), [Docker Desktop](https://www.docker.com/products/docker-desktop/), [Apache Spark](https://spark.apache.org/), [MinIO](https://min.io/),[Structured Streaming + Kafka Integration Guide](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html) & [Apache Cassandra database](https://cassandra.apache.org/_/index.html).
+###### To create this project, these sites were used [Apache Kafka](https://kafka.apache.org/), [Apache Airflow](https://airflow.apache.org/), [Kafka-Python](https://kafka-python.readthedocs.io/en/master/), [Docker Desktop](https://www.docker.com/products/docker-desktop/),  [Apache Spark](https://spark.apache.org/), [MinIO](https://min.io/), [Structured Streaming + Kafka Integration Guide](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html) & [Apache Cassandra database](https://cassandra.apache.org/_/index.html).
 
 
 Adding a new Data Engineering Project ;) 
