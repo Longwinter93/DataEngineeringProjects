@@ -19,8 +19,9 @@ _picture of it_
 - ```docker exec -it nameofsparkcontainer /bin/bash``` _to get a bash shell in the container_.
 - ```bash BashScriptForRunningPySparkScripts.sh ``` _to run this script to update pip, install packages with respect to [configuration file](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/requirements.txt), then run PySparkScripts_.
 
-<br /> After a few transformations, a DataFrame is loaded to tables in Apache Cassandra.
-<br /> This step is also recorded in a table in Apache Cassandra.
+<br />After a few transformations, a DataFrame is loaded to tables in Apache Cassandra.
+<br />This step is also recorded in a table in Apache Cassandra.
+<br />All steps are also described in all Python scripts.
 
 ## FINAL RESULT OF PROJECT
 - US Dollar Exchange Rates Tables and Percent Change in the Last 24 Hours are successfully saved as JSON and csv files in a [AirflowFolders folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders).
