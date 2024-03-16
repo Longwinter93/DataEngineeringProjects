@@ -26,11 +26,11 @@ The main goal of this project was to extract **US Dollar Exchange Rates Table** 
 ## FINAL RESULT OF PROJECT
 - US Dollar Exchange Rates Tables and Percent Change in the Last 24 Hours are successfully saved as JSON and csv files in a [AirflowFolders folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders).
 - CSV files are stored in MinIO Object Storage:
-<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/MinIOObjectStorage.jpg" width="400" height="300">.
+<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/MinIOObjectStorage.jpg" width="1000" height="400">.
 - DataFrames are also successfully loaded to tables in Apache Cassandra:
-<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/ExchangeCurrencyTables.jpg" width="400" height="300">
+<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/ExchangeCurrencyTables.jpg" width="1000" height="400">
 - All steps are recorded and inserted in a table in Apache Cassandra:
-<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/RecordTables.jpg" width="400" height="300">
+<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/RecordTables.jpg" width="1000" height="400">
 ## RUNNING THIS PROJECT MANUALLY
 <br />Instead of using a Bash script, it is feasible to run these commands in a bash shell in the Spark container:
 - ```pip install --upgrade pip```
