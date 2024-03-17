@@ -1,6 +1,6 @@
 # MAIN GOAL OF PROJECT
 <img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject4/Architecture.jpg" width="1000" height="400">
-The main goal of this project was to extract _US Dollar Exchange Rates Table_ & _Percentage Change in the Last 24 Hours_ tables from a website. <br />Data is saved as CSV and JSON files and load into Object Storage. <br />Next, data is emitted in a continuous incremental manner with the goal of low-latency processing in every fifth minute.
+The main goal of this project was to extract US Dollar Exchange Rates Table & Percentage Change in the Last 24 Hours tables from a website. <br />Data is saved as CSV and JSON files and load into Object Storage. <br />Next, data is emitted in a continuous incremental manner with the goal of low-latency processing in every fifth minute.
 <br />Finally, data is transformed and loaded then into tables. <br />In addition, each step is recorded in databases by inserting records to tables.
 
 ## SHORT DESCRIPTION OF PROJECT
