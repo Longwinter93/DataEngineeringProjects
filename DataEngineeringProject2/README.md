@@ -1,5 +1,5 @@
 # MAIN GOAL OF PROJECT
-<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject2/Architecture.jpg" width="1000" height="400">
+<br /><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject2/Architecture.jpg" width="1000" height="300">
 <br />The main goal of ***IoT Smoke Detection project*** is to monitor presence of smoke of fire based on the data collected from sensors. 
 <br />Data is emitted at high volume in a continuous, incremental manner with the goal of low-latency processing.
 
