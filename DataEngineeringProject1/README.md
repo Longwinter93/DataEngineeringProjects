@@ -1,5 +1,5 @@
 # DataEngineeringProject1
-<img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject1/Architecture.jpg" width="1000" height="400">
+<img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject1/Architecture.jpg" width="1000" height="300">
 
 # INTRODUCTION
 <br>Data from Alcohol Inventory was used to load data from .csv files to SQL Server
@@ -7,9 +7,9 @@
 
 # MAIN CONCLUSIONS
 <br> All steps were successfully done. <br>Thanks to **a pyodbc module**, it is possible to gain access to SQL Server and create a database, design tables and execute a SQL statement.
-<br><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject1/InventoryDataBase.jpg" width="1000" height="400">
+<br><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject1/InventoryDataBase.jpg" width="600" height="400">
 <br><sub>**Fig. 1** It shows that a database & tables were created in SQL Server</sub>
-<br><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject1/TablesAndData.jpg" width="1000" height="400">
+<br><img src="https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject1/TablesAndData.jpg" width="600" height="400">
 <br><sub>**Fig. 2** It shows that data was loaded in the table</sub>
 
 
