@@ -8,7 +8,7 @@
 - _SQL Server_
 
 ## [DataEngineeringProject2](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject2)
-<br />It is a IoT Smoke Detection project where data was emitted at high volumne in a continuous, incremental manner with the goal of low-latency processing. **Apache Kafka** was used to process streaming data in real-time, then data was transformed by **Apache Spark** and then loaded to **SQL Server**.
+<br />It is a IoT Smoke Detection project where data was emitted at high volumne in a continuous, incremental manner with the goal of low-latency processing. **Apache Kafka** was used to process streaming data in real-time, then data was transformed by **Apache Spark** and finally loaded to **SQL Server**.
 <br />In this project these technologies were used:
 - _Python (Pandas)_
 - _Apache Kafka_
