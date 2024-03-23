@@ -13,8 +13,7 @@
 <br><sub>**Fig. 2** It shows that data was loaded in the table</sub>
 
 
-
-<br>In-depth analysis with detailed information is included in **DataEngineeringProject1.ipynb**
+<br>In-depth analysis with detailed information is included in [DataEngineeringProject1.ipynb](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject1/DataEngineeringProject1.ipynb)
 
 
 

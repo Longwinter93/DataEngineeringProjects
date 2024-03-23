@@ -10,7 +10,7 @@
 <br />**Spark** was used to read data from Kafka. Data was also saved as a streaming DataFrame.
 <br />Finally, these DataFrames were loaded to Data warehouse and saved as tables in **SQL Server**.
 
-<br />In-depth analysis with detailed information is included in **KafkaProducerSmokeDetection.ipynb**, **KafkaConsumerSmokeDetection.ipynb** and **SparkStreamingSmokeDetectionData.ipynb**
+<br />In-depth analysis with detailed information is included in [KafkaProducerSmokeDetection.ipynb](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject2/KafkaProducerSmokeDetection.ipynb), [KafkaConsumerSmokeDetection.ipynb](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject2/KafkaConsumerSmokeDetection.ipynb) and [SparkStreamingSmokeDetectionData.ipynb](https://github.com/Longwinter93/DataEngineeringProjects/blob/main/DataEngineeringProject2/SparkStreamingSmokeDetectionData.ipynb)
 
 ## FINAL RESULT OF PROJECT
 <br /> IoT Smoke Detection data was successfully load to SQL Server:

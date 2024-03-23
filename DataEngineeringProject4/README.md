@@ -21,7 +21,7 @@
 
 <br />After a few transformations, a DataFrame is loaded to tables in Apache Cassandra.
 <br />This step is also recorded in a table in Apache Cassandra.
-<br />All steps are also described in all Python scripts.
+<br />All steps with detailed information is also described in all Python scripts.
 
 ## FINAL RESULT OF PROJECT
 - US Dollar Exchange Rates Tables and Percent Change in the Last 24 Hours are successfully saved as JSON and csv files in a [AirflowFolders folder](https://github.com/Longwinter93/DataEngineeringProjects/tree/main/DataEngineeringProject4/AirflowFolders).

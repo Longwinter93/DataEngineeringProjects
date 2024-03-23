@@ -20,6 +20,7 @@
 <br /> As a result, [A Kafka Consumer (client)](https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html) consumes records (Exchange Rate and Symbol data) from a Kafka Cluster.
 <br /> These records are read by [Structured Steaming Spark (PySpark)](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html). Tables are created in a [Postgresql](https://www.postgresql.org/)  database in the meanwhile.
 <br /> Finally, data was transformed and loaded to Postgresql tables by mentioned-above Pyspark scripts  
+<br />All steps with detailed information is also described in all Python scripts.
 
 ## **FINAL RESULT OF PROJECT**
 <br /> Thanks to bash scripts, the whole process is automatically done.
