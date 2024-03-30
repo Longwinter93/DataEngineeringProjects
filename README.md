@@ -43,5 +43,3 @@
 - _Apache Spark_
 - _Apache Cassandra_
 - _Docker_
-
-
